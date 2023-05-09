@@ -28,13 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.buttonInicio = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // buttonInicio
+            // 
+            this.buttonInicio.Location = new System.Drawing.Point(556, 444);
+            this.buttonInicio.Name = "buttonInicio";
+            this.buttonInicio.Size = new System.Drawing.Size(127, 53);
+            this.buttonInicio.TabIndex = 0;
+            this.buttonInicio.Text = "Comenzar";
+            this.buttonInicio.UseVisualStyleBackColor = true;
+            this.buttonInicio.Click += new System.EventHandler(this.buttonInicio_Click);
             // 
             // MenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1254, 1129);
+            this.Controls.Add(this.buttonInicio);
             this.Name = "MenuPrincipal";
             this.Text = "Form1";
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MenuPrincipal_KeyPress);
@@ -43,6 +55,8 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.Button buttonInicio;
     }
 }
 

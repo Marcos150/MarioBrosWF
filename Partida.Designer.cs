@@ -37,6 +37,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Name = "Partida";
             this.Text = "Partida";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Partida_FormClosed);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Partida_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Partida_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Partida_KeyUp);

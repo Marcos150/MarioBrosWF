@@ -33,5 +33,13 @@ namespace MarioBrosWF
         {
 
         }
+
+        private void buttonInicio_Click(object sender, EventArgs e)
+        {
+            Partida p = new Partida();
+            p.SetMenu(this);
+            p.Show();
+            this.Hide();
+        }
     }
 }

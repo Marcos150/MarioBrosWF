@@ -6,12 +6,23 @@ namespace MarioBrosWF
 {
     public partial class Partida : Form
     {
+        private MenuPrincipal principal;
         private Personaje jugador;
         private List<Enemigo> enemigos;
         private Timer cronometro;
         private bool secreto;
         private Plataforma[] plataformas;
         private BloquePOW pow;
+
+        public void SetMenu(MenuPrincipal principal)
+        {
+            this.principal = principal;
+        }
+
+        public MenuPrincipal GetMenu()
+        { 
+            return this.principal; 
+        }
 
         public Partida()
         {
@@ -53,6 +64,11 @@ namespace MarioBrosWF
         private void ActualizarHUD()
         {
 
+        }
+
+        private void Partida_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            principal.Show();
         }
     }
 }
