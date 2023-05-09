@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace MarioBrosWF
@@ -10,8 +11,8 @@ namespace MarioBrosWF
         public MenuPrincipal()
         {
             InitializeComponent();
-            this.Width = Configuracion.ANCHO_PANTALLA;
-            this.Height = Configuracion.ALTO_PANTALLA;
+            this.ClientSize = new Size(Configuracion.ANCHO_PANTALLA,
+                Configuracion.ALTO_PANTALLA);
         }
 
         private void Iniciar()

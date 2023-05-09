@@ -14,6 +14,10 @@
         protected bool izquierda;
         protected bool derecha;
 
+        protected SpriteAnimado(int ancho, int alto) : base(ancho, alto)
+        {
+        }
+
         public void Animar(int movimiento)
         {
 

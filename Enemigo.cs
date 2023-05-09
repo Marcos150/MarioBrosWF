@@ -7,6 +7,10 @@
         protected int puntos;
         protected bool esVulnerable;
 
+        protected Enemigo() : base(16, 16)
+        {
+        }
+
         public void mover()
         {
 

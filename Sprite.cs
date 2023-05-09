@@ -8,7 +8,14 @@ namespace MarioBrosWF
         protected int ancho;
         protected int x;
         protected int y;
+        protected int spriteX, spriteY;
         protected Image imagen;
+
+        public Sprite(int ancho, int alto)
+        {
+            this.ancho = ancho;
+            this.alto = alto;
+        }
 
         public void MoverA(int x, int y)
         {
@@ -16,9 +23,10 @@ namespace MarioBrosWF
             this.y = y;
         }
 
-        public void Dibujar()
+        public void Dibujar(Graphics g)
         {
-
+            Rectangle rect = new Rectangle(spriteX, spriteY, ancho, alto);
+            g.DrawImage(imagen, x, y, rect, GraphicsUnit.Pixel);
         }
 
         public bool ColisionaCon(Sprite s)
