@@ -7,6 +7,7 @@ namespace MarioBrosWF
     {
         private int vidas;
         private int puntos;
+        private int gravedadActual;
         public const int IZQUIERDA = 0;
         public const int DERECHA = 1;
         public const int PASO = 4;
@@ -28,6 +29,7 @@ namespace MarioBrosWF
         {
             spriteX = 1; 
             spriteY = 1;
+            gravedadActual = 0;
             vidas = Configuracion.VIDAS_INICIALES;
             puntos = 0;
             imagen = Image.FromFile("recursos/sprites.png");
@@ -54,7 +56,7 @@ namespace MarioBrosWF
                     nuevaX -= Math.Min(PASO, x);
                     Animar(IZQUIERDA);
                 }
-                else
+                else if (derecha)
                 {
                     nuevaX += Math.Min(PASO,
                         Configuracion.ANCHO_PANTALLA - this.ancho - x);
@@ -62,11 +64,22 @@ namespace MarioBrosWF
                 }
                 MoverA(nuevaX, y);
             }
+            if (gravedadActual < Configuracion.GRAVEDAD_MAXIMA)
+            {
+                gravedadActual++;
+            }
+            int nuevaY = y + gravedadActual;
+            MoverA(x, nuevaY);
         }
 
         public void Reaparecer()
         {
 
+        }
+
+        public int GetGravedad()
+        {
+            return gravedadActual;
         }
     }
 }
