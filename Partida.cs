@@ -59,6 +59,11 @@ namespace MarioBrosWF
             {
                 jugador.Derecha = true;
             }
+
+            if (e.KeyCode == Keys.Up)
+            {
+                jugador.Salta();
+            }
         }
 
         private void Partida_KeyUp(object sender, KeyEventArgs e)

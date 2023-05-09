@@ -72,6 +72,11 @@ namespace MarioBrosWF
             MoverA(x, nuevaY);
         }
 
+        public void Salta()
+        {
+            this.gravedadActual = -15;
+        }
+
         public void Reaparecer()
         {
 
