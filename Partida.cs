@@ -88,6 +88,11 @@ namespace MarioBrosWF
             {
                 jugador.Derecha = false;
             }
+            //EL JUGADOR TIENE DOBLE SALTO SI LO MATIENE PULSADO, BUSCAR SOLUCION
+            if (e.KeyCode == Keys.Up)
+            {
+                jugador.SetPuedeSaltar(false);
+            }
         }
 
         private void ActualizarHUD()
@@ -103,7 +108,23 @@ namespace MarioBrosWF
         private void timerPartida_Tick(object sender, EventArgs e)
         {
             Invalidate();
+            ComprobarColisionJugador();
             jugador.Mover();
+        }
+
+        private void ComprobarColisionJugador()
+        {
+            jugador.SetPuedeMoverse(true);
+            foreach (Plataforma p in plataformas)
+            {
+                if (jugador.ColisionaCon(p))
+                {
+                    jugador.ComprobarTipoColision(p);
+                    if (!(jugador.EnPlataforma() && jugador.GetGravedad() < 0)
+                        && !(!jugador.EnPlataforma() && jugador.GetGravedad() > 0))
+                        jugador.SetPuedeMoverse(false);
+                }
+            }
         }
 
         private void CrearPlataformas()

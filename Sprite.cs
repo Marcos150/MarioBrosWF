@@ -11,6 +11,18 @@ namespace MarioBrosWF
         protected int spriteX, spriteY;
         protected Image imagen;
 
+        public int X
+        {
+            get { return x; }
+            set { x = value; }
+        }
+
+        public int Y
+        {
+            get { return y; }
+            set { y = value; }
+        }
+
         public Sprite(int ancho, int alto)
         {
             this.ancho = ancho;
@@ -29,9 +41,10 @@ namespace MarioBrosWF
             g.DrawImage(imagen, x, y, rect, GraphicsUnit.Pixel);
         }
 
-        public bool ColisionaCon(Sprite s)
+        public bool ColisionaCon(Sprite sp)
         {
-            return false;
+            return (x < sp.x + sp.ancho && x + ancho > sp.x &&
+                    y < sp.y + alto && y + alto > sp.y);
         }
     }
 }

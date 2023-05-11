@@ -12,6 +12,9 @@ namespace MarioBrosWF
         public const int DERECHA = 1;
         public const int PASO = 4;
         private bool izquierda, derecha;
+        private bool puedeSaltar;
+        private bool enPlataforma;
+        private bool puedeMoverse;
 
         public bool Izquierda
         {
@@ -29,7 +32,12 @@ namespace MarioBrosWF
         {
             spriteX = 1; 
             spriteY = 1;
+            x = 10;
+            y = 32;
             gravedadActual = 0;
+            puedeSaltar = true;
+            puedeMoverse = true;
+            enPlataforma = false;
             vidas = Configuracion.VIDAS_INICIALES;
             puntos = 0;
             imagen = Image.FromFile("recursos/sprites.png");
@@ -64,17 +72,31 @@ namespace MarioBrosWF
                 }
                 MoverA(nuevaX, y);
             }
-            if (gravedadActual < Configuracion.GRAVEDAD_MAXIMA)
-            {
+
+            if (puedeMoverse)
+                this.MoverA(this.X, this.Y + this.GetGravedad());
+            if (this.GetGravedad() < Configuracion.GRAVEDAD_MAXIMA )//&& !this.EnPlataforma())
                 gravedadActual++;
+        }
+
+        public void ComprobarTipoColision(Plataforma p)
+        {
+            if (this.Y < p.Y)
+            {
+                this.SetEnPlataforma(true);
+                this.SetPuedeSaltar(true);
             }
-            int nuevaY = y + gravedadActual;
-            MoverA(x, nuevaY);
+            else
+                this.SetEnPlataforma(false);
         }
 
         public void Salta()
         {
-            this.gravedadActual = Configuracion.FUERZA_SALTO;
+            if (puedeSaltar)
+            {
+                this.gravedadActual = Configuracion.FUERZA_SALTO;
+                this.puedeSaltar = false;
+            }
         }
 
         public void Reaparecer()
@@ -82,9 +104,44 @@ namespace MarioBrosWF
 
         }
 
+        public void SetGravedad(int g)
+        {
+            this.gravedadActual = g;
+        }
+
         public int GetGravedad()
         {
             return gravedadActual;
+        }
+
+        public bool PuedeSaltar()
+        {
+            return puedeSaltar;
+        }
+
+        public void SetPuedeSaltar(bool puedeSaltar)
+        {
+            this.puedeSaltar = puedeSaltar;
+        }
+
+        public bool EnPlataforma()
+        {
+            return enPlataforma;
+        }
+
+        public void SetEnPlataforma(bool enPlataforma)
+        {
+            this.enPlataforma = enPlataforma;
+        }
+
+        public bool PuedeMoverse()
+        {
+            return puedeMoverse;
+        }
+
+        public void SetPuedeMoverse(bool puedeMoverse)
+        {
+            this.puedeMoverse = puedeMoverse;
         }
     }
 }
