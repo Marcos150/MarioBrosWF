@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace MarioBrosWF
 {
@@ -27,16 +29,26 @@ namespace MarioBrosWF
         public Partida()
         {
             InitializeComponent();
+            DoubleBuffered = true;
             this.ClientSize = new Size(Configuracion.ANCHO_PANTALLA,
                 Configuracion.ALTO_PANTALLA);
             jugador = new Personaje();
+            plataformas = new Plataforma[Configuracion.FILAS_MAPA*5];
+            for (int i = 0; i < plataformas.Length; i++)
+            {
+                plataformas[i] = new Plataforma();
+            }
             timerPartida.Start();
-            DoubleBuffered = true;
+            CrearPlataformas();
         }
 
         private void Partida_Paint(object sender, PaintEventArgs e)
         {
             jugador.Dibujar(e.Graphics);
+            foreach (Plataforma p in plataformas)
+            {
+                p.Dibujar(e.Graphics);
+            }
         }
 
         private void GenerarEnemigo()
@@ -92,6 +104,34 @@ namespace MarioBrosWF
         {
             Invalidate();
             jugador.Mover();
+        }
+
+        private void CrearPlataformas()
+        {
+            string linea;
+            int contador = 0;
+            int y = 0;
+            using (StreamReader fichero = new StreamReader("recursos/map.txt"))
+            {
+                do
+                {
+                    linea = fichero.ReadLine();
+                    if (linea != null)
+                    {
+                        int x = 0;
+                        foreach (char c in linea)
+                        {
+                            if (c == 'x')
+                            {
+                                plataformas[contador].MoverA(x, y);
+                                contador++;
+                            }
+                            x += 128;
+                        }
+                        y += Configuracion.ALTO_PANTALLA / Configuracion.FILAS_MAPA - 1; //-1 so that the last line is barely visible
+                    }
+                } while(linea != null);
+            }
         }
     }
 }
