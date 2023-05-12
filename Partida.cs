@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml;
+using SharpDX.XInput;
 
 namespace MarioBrosWF
 {
@@ -15,6 +16,7 @@ namespace MarioBrosWF
         private bool secreto;
         private Plataforma[] plataformas;
         private BloquePOW pow;
+        private Controller mando;
 
         public void SetMenu(MenuPrincipal principal)
         {
@@ -24,6 +26,33 @@ namespace MarioBrosWF
         public MenuPrincipal GetMenu()
         { 
             return this.principal; 
+        }
+
+        private void ConfigurarMando()
+        {
+            mando = new Controller(UserIndex.One);
+            if (mando.IsConnected)
+                MessageBox.Show("Mando conectado");
+        }
+
+        private void ComprobarMando()
+        {
+            if (mando.IsConnected)
+            {
+                State estado = mando.GetState();
+                if (estado.Gamepad.Buttons == GamepadButtonFlags.A)
+                    jugador.Salta();
+
+                if (estado.Gamepad.LeftThumbX < 0)
+                    jugador.Izquierda = true;
+                else if (estado.Gamepad.LeftThumbX > 0)
+                    jugador.Derecha = true;
+                else
+                {
+                    jugador.Izquierda = false;
+                    jugador.Derecha = false;
+                }
+            }
         }
 
         public Partida()
@@ -38,8 +67,9 @@ namespace MarioBrosWF
             {
                 plataformas[i] = new Plataforma();
             }
-            timerPartida.Start();
             CrearPlataformas();
+            ConfigurarMando();
+            timerPartida.Start(); 
         }
 
         private void Partida_Paint(object sender, PaintEventArgs e)
@@ -103,6 +133,7 @@ namespace MarioBrosWF
         private void timerPartida_Tick(object sender, EventArgs e)
         {
             Invalidate();
+            ComprobarMando();
             ComprobarColisionJugador();
             jugador.Mover();
         }
