@@ -117,13 +117,19 @@ namespace MarioBrosWF
             jugador.SetPuedeMoverse(true);
             foreach (Plataforma p in plataformas)
             {
-                if (jugador.ColisionaCon(p))
+                if (jugador.PuedeMoverse())
                 {
-                    jugador.ComprobarTipoColision(p);
-                    if (!(jugador.EnPlataforma() && jugador.GetGravedad() < 0)
-                        && !(!jugador.EnPlataforma() && jugador.GetGravedad() > 0))
-                        jugador.SetPuedeMoverse(false);
+                    if (jugador.ColisionaCon(p))
+                    {
+                        jugador.ComprobarTipoColision(p);
+                        if (!(jugador.EnPlataforma() && jugador.GetGravedad() < 0)
+                            && !(!jugador.EnPlataforma() && jugador.GetGravedad() > 0))
+                            jugador.SetPuedeMoverse(false);
+                    }
+                    else
+                        jugador.SetEnPlataforma(false);
                 }
+                
             }
         }
 

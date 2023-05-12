@@ -75,8 +75,10 @@ namespace MarioBrosWF
 
             if (puedeMoverse)
                 this.MoverA(this.X, this.Y + this.GetGravedad());
-            if (this.GetGravedad() < Configuracion.GRAVEDAD_MAXIMA )//&& !this.EnPlataforma())
+            if (this.GetGravedad() < Configuracion.GRAVEDAD_MAXIMA && !this.EnPlataforma())
                 gravedadActual++;
+            if (EnPlataforma())
+                this.gravedadActual = 0;
         }
 
         public void ComprobarTipoColision(Plataforma p)
@@ -85,6 +87,7 @@ namespace MarioBrosWF
             {
                 this.SetEnPlataforma(true);
                 this.SetPuedeSaltar(true);
+                this.y = p.Y - 30;
             }
             else
                 this.SetEnPlataforma(false);
