@@ -44,9 +44,15 @@ namespace MarioBrosWF
                     jugador.Salta();
 
                 if (estado.Gamepad.LeftThumbX < 0)
+                {
                     jugador.Izquierda = true;
+                    jugador.Derecha = false;
+                }
                 else if (estado.Gamepad.LeftThumbX > 0)
+                {
                     jugador.Derecha = true;
+                    jugador.Izquierda = false;
+                }
                 else
                 {
                     jugador.Izquierda = false;
@@ -69,7 +75,7 @@ namespace MarioBrosWF
             }
             CrearPlataformas();
             ConfigurarMando();
-            timerPartida.Start(); 
+            timerPartida.Start();
         }
 
         private void Partida_Paint(object sender, PaintEventArgs e)
