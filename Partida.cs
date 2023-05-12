@@ -40,7 +40,7 @@ namespace MarioBrosWF
             if (mando.IsConnected)
             {
                 State estado = mando.GetState();
-                if (estado.Gamepad.Buttons == GamepadButtonFlags.A)
+                if (estado.Gamepad.Buttons == Configuracion.BOTON_SALTO)
                     jugador.Salta();
 
                 if (estado.Gamepad.LeftThumbX < 0)

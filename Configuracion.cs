@@ -1,4 +1,6 @@
-﻿namespace MarioBrosWF
+﻿using SharpDX.XInput;
+
+namespace MarioBrosWF
 {
     internal class Configuracion
     {
@@ -9,8 +11,10 @@
         public static int USOS_BLOQUES_POW = 3;
         public static int VELOCIDAD_INICIAL_ENEMIGOS = 5;
         public static int FILAS_MAPA = 5; //Número de filas de map.txt -1
-        public static int GRAVEDAD_MAXIMA = 15;
-        public static int FUERZA_SALTO = -15;
+        public static int GRAVEDAD_MAXIMA = 16;
+        public static int FUERZA_SALTO = -16;
         public static string CODIGO_SECRETO = "Up, Up, Down, Down, Left, Right, Left, Right, B, A";
+
+        public static GamepadButtonFlags BOTON_SALTO = GamepadButtonFlags.A;
     }
 }
