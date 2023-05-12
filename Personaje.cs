@@ -97,6 +97,7 @@ namespace MarioBrosWF
         {
             if (puedeSaltar)
             {
+                y--; //Evita que que se pueda saltar 2 veces
                 this.gravedadActual = Configuracion.FUERZA_SALTO;
                 this.puedeSaltar = false;
             }

@@ -88,11 +88,6 @@ namespace MarioBrosWF
             {
                 jugador.Derecha = false;
             }
-            //EL JUGADOR TIENE DOBLE SALTO SI LO MATIENE PULSADO, BUSCAR SOLUCION
-            if (e.KeyCode == Keys.Up)
-            {
-                jugador.SetPuedeSaltar(false);
-            }
         }
 
         private void ActualizarHUD()
