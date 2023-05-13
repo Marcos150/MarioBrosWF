@@ -13,8 +13,9 @@ namespace MarioBrosWF
         public const int PASO = 4;
         private bool izquierda, derecha;
         private bool puedeSaltar;
-        private bool enPlataforma;
-        private bool puedeMoverse;
+        private bool puedeCaerse;
+        //Plataforma sobre la que esta el jugador
+        private Plataforma plataformaActual;
 
         public bool Izquierda
         {
@@ -36,8 +37,8 @@ namespace MarioBrosWF
             y = 32;
             gravedadActual = 0;
             puedeSaltar = true;
-            puedeMoverse = true;
-            enPlataforma = false;
+            puedeCaerse = true;
+            plataformaActual = null;
             vidas = Configuracion.VIDAS_INICIALES;
             puntos = 0;
             imagen = Image.FromFile("recursos/sprites.png");
@@ -73,24 +74,27 @@ namespace MarioBrosWF
                 MoverA(nuevaX, y);
             }
 
-            if (puedeMoverse)
+            if (plataformaActual == null && (puedeCaerse || gravedadActual > 0))
                 this.MoverA(this.X, this.Y + this.GetGravedad());
-            if (this.GetGravedad() < Configuracion.GRAVEDAD_MAXIMA && !this.EnPlataforma())
+            if (this.GetGravedad() < Configuracion.GRAVEDAD_MAXIMA && plataformaActual == null)
                 gravedadActual++;
-            if (EnPlataforma())
+            if (plataformaActual != null)
                 this.gravedadActual = 0;
         }
 
         public void ComprobarTipoColision(Plataforma p)
         {
-            if (this.Y < p.Y)
+            //Si choca por encima
+            if (this.Y <= p.Y)
             {
-                this.SetEnPlataforma(true);
                 this.SetPuedeSaltar(true);
+                this.plataformaActual = p;
                 this.y = p.Y - 30;
+                this.gravedadActual = 0;
             }
+            //Sí choca por debajo
             else
-                this.SetEnPlataforma(false);
+                puedeCaerse = false;
         }
 
         public void Salta()
@@ -98,6 +102,7 @@ namespace MarioBrosWF
             if (puedeSaltar)
             {
                 y--; //Evita que que se pueda saltar 2 veces
+                plataformaActual = null;
                 this.gravedadActual = Configuracion.FUERZA_SALTO;
                 this.puedeSaltar = false;
             }
@@ -128,24 +133,19 @@ namespace MarioBrosWF
             this.puedeSaltar = puedeSaltar;
         }
 
-        public bool EnPlataforma()
+        public void SetPuedeCaerse(bool puedeMoverse)
         {
-            return enPlataforma;
+            this.puedeCaerse = puedeMoverse;
         }
 
-        public void SetEnPlataforma(bool enPlataforma)
+        public void SetPlataforma(Plataforma p)
         {
-            this.enPlataforma = enPlataforma;
+            this.plataformaActual = p;
         }
 
-        public bool PuedeMoverse()
-        {
-            return puedeMoverse;
-        }
-
-        public void SetPuedeMoverse(bool puedeMoverse)
-        {
-            this.puedeMoverse = puedeMoverse;
+        public Plataforma GetPlataforma()
+        { 
+            return plataformaActual; 
         }
     }
 }

@@ -155,38 +155,44 @@ namespace MarioBrosWF
 
         private void ComprobarColisionJugador()
         {
-            jugador.SetPuedeMoverse(true);
-            foreach (Plataforma p in plataformas)
+            if (jugador.GetPlataforma() == null)
             {
-                if (jugador.PuedeMoverse())
+                jugador.SetPuedeCaerse(true);
+                foreach (Plataforma p in plataformas)
                 {
                     if (jugador.ColisionaCon(p))
                     {
                         jugador.ComprobarTipoColision(p);
-                        if (!(jugador.EnPlataforma() && jugador.GetGravedad() < 0)
-                            && !(!jugador.EnPlataforma() && jugador.GetGravedad() > 0))
-                            jugador.SetPuedeMoverse(false);
                     }
-                    else
-                        jugador.SetEnPlataforma(false);
                 }
-                
+            }
+            //Comprueba si el jugador sigue en la plataforma
+            else
+            {
+                if (!jugador.ColisionaCon(jugador.GetPlataforma()))
+                    jugador.SetPlataforma(null);
             }
         }
 
         private void ComprobarColisionEnemigos()
         {
-            
             foreach (Enemigo e in enemigos)
             {
-                e.SetPuedeCaerse(true);
-                foreach (Plataforma p in plataformas)
+                if (e.GetPlataforma() == null)
                 {
-                    if (e.ColisionaCon(p))
+                    foreach (Plataforma p in plataformas)
                     {
-                        e.SetPuedeCaerse(false);
-                        e.Y = p.Y - 14;
-                    }   
+                        if (e.ColisionaCon(p))
+                        {
+                            e.SetPlataforma(p);
+                            e.Y = p.Y - 14;
+                        }
+                    }
+                }
+                else
+                {
+                    if (!e.ColisionaCon(e.GetPlataforma()))
+                        e.SetPlataforma(null);
                 }
             }
         }

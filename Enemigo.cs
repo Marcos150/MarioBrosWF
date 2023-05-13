@@ -7,14 +7,14 @@
         protected int puntos;
         protected bool esVulnerable;
         protected int gravedadActual;
-        protected bool puedeCaerse;
+        //Plataforma sobre la que esta el enemigo
+        protected Plataforma plataformaActual;
 
         protected Enemigo() : base(15, 15)
         {
             esVulnerable = false;
             velocidadActual = Configuracion.VELOCIDAD_INICIAL_ENEMIGOS;
             gravedadActual = 0;
-            puedeCaerse = true;
         }
 
         public void Mover()
@@ -25,11 +25,11 @@
                 MoverA(nuevaX, y);
             }
 
-            if (puedeCaerse)
+            if (plataformaActual == null)
                 this.MoverA(this.X, this.Y + gravedadActual);
-            if (gravedadActual < Configuracion.GRAVEDAD_MAXIMA && puedeCaerse)
+            if (gravedadActual < Configuracion.GRAVEDAD_MAXIMA && plataformaActual == null)
                 gravedadActual++;
-            if (!puedeCaerse)
+            if (plataformaActual != null)
                 this.gravedadActual = 0;
         }
 
@@ -38,14 +38,14 @@
 
         }
 
-        public void SetPuedeCaerse(bool p)
+        public void SetPlataforma(Plataforma p)
         {
-            puedeCaerse = p;
+            this.plataformaActual = p;
         }
 
-        public bool PuedeCaerse()
+        public Plataforma GetPlataforma()
         {
-            return puedeCaerse;
+            return plataformaActual;
         }
     }
 }
