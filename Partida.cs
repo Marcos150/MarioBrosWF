@@ -163,7 +163,11 @@ namespace MarioBrosWF
                 {
                     if (jugador.ColisionaCon(p))
                     {
-                        jugador.ComprobarTipoColision(p);
+                        if (jugador.ComprobarTipoColision(p, enemigos) == 1)
+                            ComprobarEnemigosGolpeados(p);
+                        else
+                            jugador.SetHaGolpeado(false);
+
                     }
                 }
             }
@@ -177,8 +181,23 @@ namespace MarioBrosWF
             //Enemigos
             foreach (Enemigo e in enemigos)
             {
-                if (jugador.ColisionaCon(e))
+                if (jugador.ColisionaCon(e) && !e.EsVulnerable())
                     jugador.Reaparecer();
+                else if (jugador.ColisionaCon(e) && e.EsVulnerable())
+                    enemigos.Remove(e);
+            }
+        }
+
+        private void ComprobarEnemigosGolpeados(Plataforma p)
+        {
+            foreach (Enemigo e in enemigos)
+            {
+                if ((jugador.X > e.X - 5 && jugador.X < e.X + 5) && e.GetPlataforma() == p)
+                {
+                    if (!jugador.HaGolpeado())
+                        e.CambiarVulnerabilidad();
+                    jugador.SetHaGolpeado(true);
+                }
             }
         }
 

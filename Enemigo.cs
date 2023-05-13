@@ -1,4 +1,6 @@
-﻿namespace MarioBrosWF
+﻿using System.Threading;
+
+namespace MarioBrosWF
 {
     internal abstract class Enemigo : SpriteAnimado
     {
@@ -36,6 +38,30 @@
         public void Recuperarse()
         {
 
+        }
+
+        public void CambiarVulnerabilidad()
+        {
+            if (!esVulnerable)
+            {
+                vidas--;
+                if (vidas == 0)
+                {
+                    esVulnerable = true;
+                    velocidadActual = 0;
+                }
+            }
+            else
+            {
+                esVulnerable = false;
+                velocidadActual = Configuracion.VELOCIDAD_INICIAL_ENEMIGOS;
+                vidas = 1;
+            }
+        }
+
+        public bool EsVulnerable()
+        {
+            return esVulnerable;
         }
 
         public void SetPlataforma(Plataforma p)

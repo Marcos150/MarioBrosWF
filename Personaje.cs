@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace MarioBrosWF
@@ -16,6 +17,8 @@ namespace MarioBrosWF
         private bool puedeCaerse;
         //Plataforma sobre la que esta el jugador
         private Plataforma plataformaActual;
+        //Determina si ya ha golpeado una plataforma por debajo
+        private bool haGolpeado;
 
         public bool Izquierda
         {
@@ -38,6 +41,7 @@ namespace MarioBrosWF
             gravedadActual = 0;
             puedeSaltar = true;
             puedeCaerse = true;
+            haGolpeado = false;
             plataformaActual = null;
             vidas = Configuracion.VIDAS_INICIALES;
             puntos = 0;
@@ -82,7 +86,7 @@ namespace MarioBrosWF
                 this.gravedadActual = 0;
         }
 
-        public void ComprobarTipoColision(Plataforma p)
+        public int ComprobarTipoColision(Plataforma p, List<Enemigo> enemigos)
         {
             //Si choca por encima
             if (this.Y <= p.Y)
@@ -91,10 +95,14 @@ namespace MarioBrosWF
                 this.plataformaActual = p;
                 this.y = p.Y - 30;
                 this.gravedadActual = 0;
+                return 0;
             }
             //Sí choca por debajo
             else
+            {
                 puedeCaerse = false;
+                return 1;
+            }
         }
 
         public void Salta()
@@ -133,6 +141,16 @@ namespace MarioBrosWF
         public void SetPuedeSaltar(bool puedeSaltar)
         {
             this.puedeSaltar = puedeSaltar;
+        }
+
+        public bool HaGolpeado()
+        {
+            return haGolpeado;
+        }
+
+        public void SetHaGolpeado(bool ha)
+        {
+            this.haGolpeado = ha;
         }
 
         public void SetPuedeCaerse(bool puedeMoverse)

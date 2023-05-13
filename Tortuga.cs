@@ -11,6 +11,8 @@ namespace MarioBrosWF
             spriteY = 137;
             x = 10;
             y = 20;
+            vidas = 1;
+            puntos = 0;
         }
     }
 }
