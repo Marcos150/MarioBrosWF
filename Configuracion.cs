@@ -9,7 +9,7 @@ namespace MarioBrosWF
         public static int RATIO_ANIMACION = 10;
         public static int VIDAS_INICIALES = 3;
         public static int USOS_BLOQUES_POW = 3;
-        public static int VELOCIDAD_INICIAL_ENEMIGOS = 5;
+        public static int VELOCIDAD_INICIAL_ENEMIGOS = 2;
         public static int FILAS_MAPA = 5; //Número de filas de map.txt -1
         public static int GRAVEDAD_MAXIMA = 16;
         public static int FUERZA_SALTO = -16;

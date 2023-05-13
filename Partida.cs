@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
 using SharpDX.XInput;
@@ -68,6 +69,8 @@ namespace MarioBrosWF
             this.ClientSize = new Size(Configuracion.ANCHO_PANTALLA,
                 Configuracion.ALTO_PANTALLA);
             jugador = new Personaje();
+            enemigos = new List<Enemigo>();
+            enemigos.Add(new Tortuga());
             plataformas = new Plataforma[Configuracion.FILAS_MAPA*5];
             for (int i = 0; i < plataformas.Length; i++)
             {
@@ -84,6 +87,10 @@ namespace MarioBrosWF
             foreach (Plataforma p in plataformas)
             {
                 p.Dibujar(e.Graphics);
+            }
+            foreach (Enemigo enemigo in enemigos)
+            {
+                enemigo.Dibujar(e.Graphics);
             }
         }
 
@@ -141,7 +148,9 @@ namespace MarioBrosWF
             Invalidate();
             ComprobarMando();
             ComprobarColisionJugador();
+            ComprobarColisionEnemigos();
             jugador.Mover();
+            MoverEnemigos();
         }
 
         private void ComprobarColisionJugador()
@@ -162,6 +171,31 @@ namespace MarioBrosWF
                         jugador.SetEnPlataforma(false);
                 }
                 
+            }
+        }
+
+        private void ComprobarColisionEnemigos()
+        {
+            
+            foreach (Enemigo e in enemigos)
+            {
+                e.SetPuedeCaerse(true);
+                foreach (Plataforma p in plataformas)
+                {
+                    if (e.ColisionaCon(p))
+                    {
+                        e.SetPuedeCaerse(false);
+                        e.Y = p.Y - 14;
+                    }   
+                }
+            }
+        }
+
+        private void MoverEnemigos()
+        {
+            foreach (Enemigo e in enemigos)
+            {
+                e.Mover();
             }
         }
 
