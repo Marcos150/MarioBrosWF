@@ -33,8 +33,8 @@ namespace MarioBrosWF
         {
             spriteX = 1; 
             spriteY = 1;
-            x = 10;
-            y = 32;
+            x = Configuracion.COORDENADAS_INICIALES[0];
+            y = Configuracion.COORDENADAS_INICIALES[1];
             gravedadActual = 0;
             puedeSaltar = true;
             puedeCaerse = true;
@@ -110,7 +110,9 @@ namespace MarioBrosWF
 
         public void Reaparecer()
         {
-            MoverA(10, 32);
+            x = Configuracion.COORDENADAS_INICIALES[0];
+            y = Configuracion.COORDENADAS_INICIALES[1];
+            MoverA(x, y);
         }
 
         public void SetGravedad(int g)
