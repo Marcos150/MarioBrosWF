@@ -110,7 +110,7 @@ namespace MarioBrosWF
 
         public void Reaparecer()
         {
-
+            MoverA(10, 32);
         }
 
         public void SetGravedad(int g)

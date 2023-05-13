@@ -155,6 +155,7 @@ namespace MarioBrosWF
 
         private void ComprobarColisionJugador()
         {
+            //Plataformas
             if (jugador.GetPlataforma() == null)
             {
                 jugador.SetPuedeCaerse(true);
@@ -171,6 +172,13 @@ namespace MarioBrosWF
             {
                 if (!jugador.ColisionaCon(jugador.GetPlataforma()))
                     jugador.SetPlataforma(null);
+            }
+
+            //Enemigos
+            foreach (Enemigo e in enemigos)
+            {
+                if (jugador.ColisionaCon(e))
+                    jugador.Reaparecer();
             }
         }
 
