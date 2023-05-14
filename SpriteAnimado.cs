@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+﻿//Clase abstracta de los elementos animados
 
 namespace MarioBrosWF
 {

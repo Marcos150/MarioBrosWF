@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Struct con los elementos de un registro del ranking
+
+using System;
 
 namespace MarioBrosWF
 {

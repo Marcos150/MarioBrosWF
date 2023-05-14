@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//Clase del formulario de la pantalla de game over
+
 using System.Windows.Forms;
 
 namespace MarioBrosWF

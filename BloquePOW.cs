@@ -1,4 +1,6 @@
-﻿namespace MarioBrosWF
+﻿//Clase que define al bloque POW
+
+namespace MarioBrosWF
 {
     internal class BloquePOW : Sprite
     {

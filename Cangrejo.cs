@@ -1,4 +1,6 @@
-﻿namespace MarioBrosWF
+﻿//Clase que define a los enemigos cangrejo
+
+namespace MarioBrosWF
 {
     internal class Cangrejo : Enemigo
     {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿//Clase que define las plataformas
+
 using System.Drawing;
 
 

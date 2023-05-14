@@ -1,5 +1,6 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
+﻿//Clase abstracta que define a los enemigos
+
+using System.Drawing;
 
 namespace MarioBrosWF
 {
@@ -12,6 +13,7 @@ namespace MarioBrosWF
         protected int gravedadActual;
         //Plataforma sobre la que esta el enemigo
         protected Plataforma plataformaActual;
+        //Tiempo que pasa desde que es golpeado hasta que se recupara
         protected int tiempoVulnerabilidad;
         protected string spriteVulnerable;
 

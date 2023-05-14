@@ -1,4 +1,6 @@
-﻿using SharpDX.XInput;
+﻿//Clase con los elementos configurables
+
+using SharpDX.XInput;
 
 namespace MarioBrosWF
 {

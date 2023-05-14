@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿//Clase abstracta de los elementos con sprite
+
+using System.Drawing;
 
 namespace MarioBrosWF
 {

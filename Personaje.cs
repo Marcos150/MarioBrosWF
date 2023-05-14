@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Clase que define al personaje controlado por el jugador
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -82,11 +84,13 @@ namespace MarioBrosWF
                 {
                     ultimaDireccion = IZQUIERDA;
                     nuevaX -= Math.Min(PASO, x);
+                    //Si esta en una plataforma
                     if (plataformaActual != null)
                     {
                         imagen = Image.FromFile(FICHERO_SPRITE);
                         Animar(IZQUIERDA);
                     }
+                    //Si esta en el aire
                     else
                     {
                         spriteX = 0;
@@ -99,11 +103,13 @@ namespace MarioBrosWF
                     ultimaDireccion = DERECHA;
                     nuevaX += Math.Min(PASO,
                         Configuracion.ANCHO_PANTALLA - this.ancho - x);
+                    //Si esta en una plataforma
                     if (plataformaActual != null)
                     {
                         imagen = Image.FromFile(FICHERO_SPRITE);
                         Animar(DERECHA);
                     }
+                    //Si esta en el aire
                     else
                     {
                         spriteX = 0;
@@ -123,12 +129,14 @@ namespace MarioBrosWF
                     imagen = Image.FromFile(spriteQuietoDerecha);
             }
 
+            //Se mueve verticalmente si no esta en una plataforma
+            //y no golpea a nada por arriba
             if (plataformaActual == null && (puedeCaerse || gravedadActual > 0))
                 this.MoverA(this.X, this.Y + this.GetGravedad());
+            //Aumenta gravedad si no se ha alcanzado la gravedad máxima
+            //y no se esta en una plataforma
             if (this.GetGravedad() < Configuracion.GRAVEDAD_MAXIMA && plataformaActual == null)
                 gravedadActual++;
-            if (plataformaActual != null)
-                this.gravedadActual = 0;
         }
 
         public int ComprobarTipoColision(Plataforma p, List<Enemigo> enemigos)

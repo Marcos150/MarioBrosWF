@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿//Clase que define a los enemigos tortuga
+
+using System.Drawing;
 
 namespace MarioBrosWF
 {

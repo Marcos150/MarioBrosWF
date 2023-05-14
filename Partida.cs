@@ -1,10 +1,10 @@
-﻿using System;
+﻿//Clase que gestiona el formulario de partida
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
-using System.Xml;
 using SharpDX.XInput;
 
 namespace MarioBrosWF
@@ -71,6 +71,7 @@ namespace MarioBrosWF
             jugador = new Personaje();
             enemigos = new List<Enemigo>();
             enemigos.Add(new Tortuga());
+            //5 es el máximo de plataformas por fila
             plataformas = new Plataforma[Configuracion.FILAS_MAPA*5];
             for (int i = 0; i < plataformas.Length; i++)
             {
@@ -193,7 +194,7 @@ namespace MarioBrosWF
         {
             foreach (Enemigo e in enemigos)
             {
-                if ((jugador.X > e.X - 5 && jugador.X < e.X + 5) && e.GetPlataforma() == p)
+                if (jugador.X > e.X - 5 && jugador.X < e.X + 5 && e.GetPlataforma() == p)
                 {
                     if (!jugador.HaGolpeado())
                         e.CambiarVulnerabilidad();

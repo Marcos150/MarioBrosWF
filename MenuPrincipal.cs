@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Clase del formulario del menú principal
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
