@@ -1,4 +1,6 @@
-﻿namespace MarioBrosWF
+﻿using System.Windows.Forms;
+
+namespace MarioBrosWF
 {
     internal abstract class Enemigo : SpriteAnimado
     {
@@ -50,11 +52,14 @@
                     esVulnerable = true;
                     velocidadActual = 0;
                     tiempoVulnerabilidad = Configuracion.TIEMPO_VULNERABILIDAD_ENEMIGOS / 30;
+                    //Esto funciona de casualidad, una vez este animado hay que cambiarlo
+                    imagen.RotateFlip(System.Drawing.RotateFlipType.RotateNoneFlipX);
                 }
             }
             else
             {
                 esVulnerable = false;
+                imagen.RotateFlip(System.Drawing.RotateFlipType.RotateNoneFlipX);
                 velocidadActual = Configuracion.VELOCIDAD_INICIAL_ENEMIGOS;
                 vidas = 1;
             }
