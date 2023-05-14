@@ -11,8 +11,13 @@ namespace MarioBrosWF
         private int gravedadActual;
         public const int PASO = 4;
         private bool izquierda, derecha;
+        private int ultimaDireccion;
         private bool puedeSaltar;
         private bool puedeCaerse;
+        private string spriteSaltoIzquierda;
+        private string spriteSaltoDerecha;
+        private string spriteQuietoIzquierda;
+        private string spriteQuietoDerecha;
         //Plataforma sobre la que esta el jugador
         private Plataforma plataformaActual;
         //Determina si ya ha golpeado una plataforma por debajo
@@ -32,12 +37,18 @@ namespace MarioBrosWF
 
         public Personaje() : base(16, 32)
         {
+            FICHERO_SPRITE = "recursos/spritesAndar.png";
+            spriteSaltoIzquierda = "recursos/spriteSaltoIzquierda.png";
+            spriteQuietoIzquierda = "recursos/spriteQuietoIzquierda.png";
+            spriteSaltoDerecha = "recursos/spriteSaltoDerecha.png";
+            spriteQuietoDerecha = "recursos/spriteQuietoDerecha.png";
             coordenadasX[DERECHA] = new int[] { 80, 96, 112, 128, 144 };
             coordenadasY[DERECHA] = new int[] { 0, 0, 0, 0, 0 };
             coordenadasX[IZQUIERDA] = new int[] { 0, 16, 32, 48, 64 };
             coordenadasY[IZQUIERDA] = new int[] { 0, 0, 0, 0, 0 };
             izquierda = false;
             derecha = false;
+            ultimaDireccion = DERECHA;
             ActualizarCoordenadasSprite();
             x = Configuracion.COORDENADAS_INICIALES[0];
             y = Configuracion.COORDENADAS_INICIALES[1];
@@ -48,7 +59,7 @@ namespace MarioBrosWF
             plataformaActual = null;
             vidas = Configuracion.VIDAS_INICIALES;
             puntos = 0;
-            imagen = Image.FromFile("recursos/spritesAndar.png");
+            imagen = Image.FromFile(FICHERO_SPRITE);
         }
 
         public void Mover(int movimiento)
@@ -69,16 +80,47 @@ namespace MarioBrosWF
                 int nuevaX = x;
                 if (izquierda)
                 {
+                    ultimaDireccion = IZQUIERDA;
                     nuevaX -= Math.Min(PASO, x);
-                    Animar(IZQUIERDA);
+                    if (plataformaActual != null)
+                    {
+                        imagen = Image.FromFile(FICHERO_SPRITE);
+                        Animar(IZQUIERDA);
+                    }
+                    else
+                    {
+                        spriteX = 0;
+                        spriteY = 0;
+                        imagen = Image.FromFile(spriteSaltoIzquierda);
+                    }
                 }
                 else if (derecha)
                 {
+                    ultimaDireccion = DERECHA;
                     nuevaX += Math.Min(PASO,
                         Configuracion.ANCHO_PANTALLA - this.ancho - x);
-                    Animar(DERECHA);
+                    if (plataformaActual != null)
+                    {
+                        imagen = Image.FromFile(FICHERO_SPRITE);
+                        Animar(DERECHA);
+                    }
+                    else
+                    {
+                        spriteX = 0;
+                        spriteY = 0;
+                        imagen = Image.FromFile(spriteSaltoDerecha);
+                    }
                 }
                 MoverA(nuevaX, y);
+            }
+            else
+            {
+                spriteX = 0;
+                spriteY = 0;
+                if (ultimaDireccion == IZQUIERDA)
+                    imagen = Image.FromFile(spriteQuietoIzquierda);
+                else
+                    imagen = Image.FromFile(spriteQuietoDerecha);
             }
 
             if (plataformaActual == null && (puedeCaerse || gravedadActual > 0))
@@ -98,6 +140,8 @@ namespace MarioBrosWF
                 this.plataformaActual = p;
                 this.y = p.Y - 31;
                 this.gravedadActual = 0;
+                if (derecha || izquierda)
+                    imagen = Image.FromFile(FICHERO_SPRITE);
                 return 0;
             }
             //Sí choca por debajo
