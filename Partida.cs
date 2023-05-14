@@ -111,7 +111,7 @@ namespace MarioBrosWF
                 jugador.Izquierda = true;
             }
             else if (e.KeyCode == Keys.Right)
-            {
+            { 
                 jugador.Derecha = true;
             }
 

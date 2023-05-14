@@ -32,10 +32,15 @@ namespace MarioBrosWF
             set { derecha = value; }
         }
 
-        public Personaje() : base(15, 31)
+        public Personaje() : base(16, 32)
         {
-            spriteX = 1; 
-            spriteY = 1;
+            coordenadasX[DERECHA] = new int[] { 80, 96, 112, 128, 144 };
+            coordenadasY[DERECHA] = new int[] { 0, 0, 0, 0, 0 };
+            coordenadasX[IZQUIERDA] = new int[] { 0, 16, 32, 48, 64 };
+            coordenadasY[IZQUIERDA] = new int[] { 0, 0, 0, 0, 0 };
+            izquierda = false;
+            derecha = false;
+            ActualizarCoordenadasSprite();
             x = Configuracion.COORDENADAS_INICIALES[0];
             y = Configuracion.COORDENADAS_INICIALES[1];
             gravedadActual = 0;
@@ -45,7 +50,7 @@ namespace MarioBrosWF
             plataformaActual = null;
             vidas = Configuracion.VIDAS_INICIALES;
             puntos = 0;
-            imagen = Image.FromFile("recursos/sprites.png");
+            imagen = Image.FromFile("recursos/spritesAndar.png");
         }
 
         public void Mover(int movimiento)
@@ -93,7 +98,7 @@ namespace MarioBrosWF
             {
                 this.SetPuedeSaltar(true);
                 this.plataformaActual = p;
-                this.y = p.Y - 30;
+                this.y = p.Y - 31;
                 this.gravedadActual = 0;
                 return 0;
             }
