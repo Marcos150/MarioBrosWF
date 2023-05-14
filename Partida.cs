@@ -150,6 +150,7 @@ namespace MarioBrosWF
             ComprobarColisionJugador();
             ComprobarColisionEnemigos();
             jugador.Mover();
+            ComprobarTiempoEnemigos();
             MoverEnemigos();
         }
 
@@ -197,6 +198,21 @@ namespace MarioBrosWF
                     if (!jugador.HaGolpeado())
                         e.CambiarVulnerabilidad();
                     jugador.SetHaGolpeado(true);
+                }
+            }
+        }
+
+        private void ComprobarTiempoEnemigos()
+        {
+            foreach (Enemigo e in enemigos)
+            {
+                if (e.EsVulnerable())
+                {
+                    e.RestarTiempo();
+                    if (e.GetTiempo() <= 0)
+                    {
+                        e.CambiarVulnerabilidad();
+                    }
                 }
             }
         }

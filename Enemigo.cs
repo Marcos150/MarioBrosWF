@@ -1,6 +1,4 @@
-﻿using System.Threading;
-
-namespace MarioBrosWF
+﻿namespace MarioBrosWF
 {
     internal abstract class Enemigo : SpriteAnimado
     {
@@ -11,12 +9,14 @@ namespace MarioBrosWF
         protected int gravedadActual;
         //Plataforma sobre la que esta el enemigo
         protected Plataforma plataformaActual;
+        protected int tiempoVulnerabilidad;
 
         protected Enemigo() : base(15, 15)
         {
             esVulnerable = false;
             velocidadActual = Configuracion.VELOCIDAD_INICIAL_ENEMIGOS;
             gravedadActual = 0;
+            tiempoVulnerabilidad = 0;
         }
 
         public void Mover()
@@ -49,6 +49,7 @@ namespace MarioBrosWF
                 {
                     esVulnerable = true;
                     velocidadActual = 0;
+                    tiempoVulnerabilidad = Configuracion.TIEMPO_VULNERABILIDAD_ENEMIGOS / 30;
                 }
             }
             else
@@ -72,6 +73,16 @@ namespace MarioBrosWF
         public Plataforma GetPlataforma()
         {
             return plataformaActual;
+        }
+
+        public int GetTiempo()
+        {
+            return tiempoVulnerabilidad;
+        }
+
+        public void RestarTiempo()
+        {
+            tiempoVulnerabilidad--;
         }
     }
 }
