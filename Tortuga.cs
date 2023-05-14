@@ -6,7 +6,9 @@ namespace MarioBrosWF
     {
         public Tortuga() : base()
         {
-            imagen = Image.FromFile("recursos/sprites.png");
+            FICHERO_SPRITE = "recursos/spritesAndarTortuga.png";
+            spriteVulnerable = "recursos/tortugaVulnerable.png";
+            imagen = Image.FromFile(FICHERO_SPRITE);
             spriteX = 1;
             spriteY = 137;
             x = 10;

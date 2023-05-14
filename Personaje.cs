@@ -9,8 +9,6 @@ namespace MarioBrosWF
         private int vidas;
         private int puntos;
         private int gravedadActual;
-        public const int IZQUIERDA = 0;
-        public const int DERECHA = 1;
         public const int PASO = 4;
         private bool izquierda, derecha;
         private bool puedeSaltar;

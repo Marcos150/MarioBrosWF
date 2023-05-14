@@ -6,6 +6,8 @@ namespace MarioBrosWF
     {
         public int ALTO;
         public int ANCHO;
+        public const int IZQUIERDA = 0;
+        public const int DERECHA = 1;
         protected string FICHERO_SPRITE;
         // Cuántos movimientos diferentes puede hacer el objeto
         protected int movimientosTotales;

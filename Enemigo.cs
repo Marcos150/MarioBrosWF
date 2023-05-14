@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Drawing;
+using System.Windows.Forms;
 
 namespace MarioBrosWF
 {
@@ -12,9 +13,19 @@ namespace MarioBrosWF
         //Plataforma sobre la que esta el enemigo
         protected Plataforma plataformaActual;
         protected int tiempoVulnerabilidad;
+        protected string spriteVulnerable;
 
         protected Enemigo() : base(15, 15)
         {
+            coordenadasX[DERECHA] = new int[] { 80, 96, 112, 128, 144 };
+            coordenadasY[DERECHA] = new int[] { 0, 0, 0, 0, 0 };
+            coordenadasX[IZQUIERDA] = new int[] { 0, 16, 32, 48, 64 };
+            coordenadasY[IZQUIERDA] = new int[] { 0, 0, 0, 0, 0 };
+            izquierda = false;
+            derecha = false;
+            ActualizarCoordenadasSprite();
+            x = Configuracion.COORDENADAS_INICIALES[0];
+            y = Configuracion.COORDENADAS_INICIALES[1];
             esVulnerable = false;
             velocidadActual = Configuracion.VELOCIDAD_INICIAL_ENEMIGOS;
             gravedadActual = 0;
@@ -27,6 +38,10 @@ namespace MarioBrosWF
             {
                 int nuevaX = x + velocidadActual;
                 MoverA(nuevaX, y);
+                if (velocidadActual > 0) 
+                    Animar(DERECHA);
+                else if (velocidadActual < 0)
+                    Animar(IZQUIERDA);
             }
 
             if (plataformaActual == null)
@@ -52,16 +67,16 @@ namespace MarioBrosWF
                     esVulnerable = true;
                     velocidadActual = 0;
                     tiempoVulnerabilidad = Configuracion.TIEMPO_VULNERABILIDAD_ENEMIGOS / 30;
-                    //Esto funciona de casualidad, una vez este animado hay que cambiarlo
-                    imagen.RotateFlip(System.Drawing.RotateFlipType.RotateNoneFlipX);
+                    spriteX = 0;
+                    spriteY = 0;
+                    imagen = Image.FromFile(spriteVulnerable);
                 }
             }
             else
             {
                 esVulnerable = false;
-                //Esto funciona de casualidad, una vez este animado hay que cambiarlo
-                imagen.RotateFlip(System.Drawing.RotateFlipType.RotateNoneFlipX);
                 velocidadActual = Configuracion.VELOCIDAD_INICIAL_ENEMIGOS;
+                imagen = Image.FromFile(FICHERO_SPRITE);
                 vidas = 1;
             }
         }
