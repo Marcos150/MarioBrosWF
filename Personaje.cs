@@ -37,7 +37,7 @@ namespace MarioBrosWF
             set { derecha = value; }
         }
 
-        public Personaje() : base(16, 32)
+        public Personaje() : base(16, 23)
         {
             FICHERO_SPRITE = "recursos/spritesAndar.png";
             spriteSaltoIzquierda = "recursos/spriteSaltoIzquierda.png";
@@ -146,7 +146,7 @@ namespace MarioBrosWF
             {
                 this.SetPuedeSaltar(true);
                 this.plataformaActual = p;
-                this.y = p.Y - 31;
+                this.y = p.Y - 22;
                 this.gravedadActual = 0;
                 if (derecha || izquierda)
                     imagen = Image.FromFile(FICHERO_SPRITE);
