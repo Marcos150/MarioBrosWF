@@ -269,9 +269,9 @@ namespace MarioBrosWF
                                 plataformas[contador].MoverA(x, y);
                                 contador++;
                             }
-                            x += 128;
+                            x += Configuracion.DIMENSIONES_PLATAFORMA[0];
                         }
-                        y += Configuracion.ALTO_PANTALLA / Configuracion.FILAS_MAPA - 1; //-1 so that the last line is barely visible
+                        y += Configuracion.ALTO_PANTALLA / Configuracion.FILAS_MAPA - 2; //-1 so that the last line is barely visible
                     }
                 } while(linea != null);
             }

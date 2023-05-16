@@ -67,5 +67,61 @@ namespace MarioBrosWF
             string jsonString = JsonSerializer.Serialize(lista, opciones);
             File.WriteAllText(RANKING, jsonString);
         }
+
+        private void buttonTamanyo_Click(object sender, EventArgs e)
+        {
+            if (Configuracion.ALTO_PANTALLA == 375)
+            {
+                Configuracion.ALTO_PANTALLA *= 2;
+                Configuracion.ANCHO_PANTALLA *= 2;
+                Configuracion.DIMENSIONES_PERSONAJE[0] *= 2;
+                Configuracion.DIMENSIONES_PERSONAJE[1] *= 2;
+                Configuracion.DIMENSIONES_ENEMIGO[0] *= 2;
+                Configuracion.DIMENSIONES_ENEMIGO[1] *= 2;
+                Configuracion.DIMENSIONES_PLATAFORMA[0] *= 2;
+                Configuracion.DIMENSIONES_PLATAFORMA[1] *= 2;
+                Configuracion.GRAVEDAD_MAXIMA = 18;
+                Configuracion.FUERZA_SALTO = -18;
+
+                for (int i = 0; i < Configuracion.ANIMACION_PERSONAJE_DERECHA.Length; i++)
+                {
+                    Configuracion.ANIMACION_PERSONAJE_DERECHA[i] *= 2;
+                    Configuracion.ANIMACION_PERSONAJE_IZQUIERDA[i] *= 2;
+                    Configuracion.ANIMACION_ENEMIGO_DERECHA[i] *= 2;
+                    Configuracion.ANIMACION_ENEMIGO_IZQUIERDA[i] *= 2;
+                }
+
+                Configuracion.VELOCIDAD_INICIAL_ENEMIGOS *= 2;
+                Configuracion.PASO *= 2;
+                Configuracion.CARPETA = "recursos/spritesGrandotes/";
+            }
+            else
+            {
+                Configuracion.ALTO_PANTALLA /= 2;
+                Configuracion.ANCHO_PANTALLA /= 2;
+                Configuracion.DIMENSIONES_PERSONAJE[0] /= 2;
+                Configuracion.DIMENSIONES_PERSONAJE[1] /= 2;
+                Configuracion.DIMENSIONES_ENEMIGO[0] /= 2;
+                Configuracion.DIMENSIONES_ENEMIGO[1] /= 2;
+                Configuracion.DIMENSIONES_PLATAFORMA[0] /= 2;
+                Configuracion.DIMENSIONES_PLATAFORMA[1] /= 2;
+                Configuracion.GRAVEDAD_MAXIMA = 14;
+                Configuracion.FUERZA_SALTO = -14;
+
+                for (int i = 0; i < Configuracion.ANIMACION_PERSONAJE_DERECHA.Length; i++)
+                {
+                    Configuracion.ANIMACION_PERSONAJE_DERECHA[i] /= 2;
+                    Configuracion.ANIMACION_PERSONAJE_IZQUIERDA[i] /= 2;
+                    Configuracion.ANIMACION_ENEMIGO_DERECHA[i] /= 2;
+                    Configuracion.ANIMACION_ENEMIGO_IZQUIERDA[i] /= 2;
+                }
+
+                Configuracion.VELOCIDAD_INICIAL_ENEMIGOS /= 2;
+                Configuracion.PASO /= 2;
+                Configuracion.CARPETA = "recursos/spritesChiquitos/";
+            }
+            this.ClientSize = new Size(Configuracion.ANCHO_PANTALLA,
+                Configuracion.ALTO_PANTALLA);
+        }
     }
 }

@@ -11,7 +11,6 @@ namespace MarioBrosWF
         private int vidas;
         private int puntos;
         private int gravedadActual;
-        public const int PASO = 4;
         private bool izquierda, derecha;
         private int ultimaDireccion;
         private bool puedeSaltar;
@@ -37,16 +36,17 @@ namespace MarioBrosWF
             set { derecha = value; }
         }
 
-        public Personaje() : base(16, 23)
+        public Personaje() : base(Configuracion.DIMENSIONES_PERSONAJE[0], 
+            Configuracion.DIMENSIONES_PERSONAJE[1])
         {
-            FICHERO_SPRITE = "recursos/spritesAndar.png";
-            spriteSaltoIzquierda = "recursos/spriteSaltoIzquierda.png";
-            spriteQuietoIzquierda = "recursos/spriteQuietoIzquierda.png";
-            spriteSaltoDerecha = "recursos/spriteSaltoDerecha.png";
-            spriteQuietoDerecha = "recursos/spriteQuietoDerecha.png";
-            coordenadasX[DERECHA] = new int[] { 80, 96, 112, 128, 144 };
+            FICHERO_SPRITE = Configuracion.CARPETA + "spritesAndar.png";
+            spriteSaltoIzquierda = Configuracion.CARPETA + "spriteSaltoIzquierda.png";
+            spriteQuietoIzquierda = Configuracion.CARPETA + "spriteQuietoIzquierda.png";
+            spriteSaltoDerecha = Configuracion.CARPETA + "spriteSaltoDerecha.png";
+            spriteQuietoDerecha = Configuracion.CARPETA + "spriteQuietoDerecha.png";
+            coordenadasX[DERECHA] = Configuracion.ANIMACION_PERSONAJE_DERECHA;
             coordenadasY[DERECHA] = new int[] { 0, 0, 0, 0, 0 };
-            coordenadasX[IZQUIERDA] = new int[] { 0, 16, 32, 48, 64 };
+            coordenadasX[IZQUIERDA] = Configuracion.ANIMACION_PERSONAJE_IZQUIERDA;
             coordenadasY[IZQUIERDA] = new int[] { 0, 0, 0, 0, 0 };
             izquierda = false;
             derecha = false;
@@ -83,7 +83,7 @@ namespace MarioBrosWF
                 if (izquierda)
                 {
                     ultimaDireccion = IZQUIERDA;
-                    nuevaX -= Math.Min(PASO, x);
+                    nuevaX -= Math.Min(Configuracion.PASO, x);
                     //Si esta en una plataforma
                     if (plataformaActual != null)
                     {
@@ -101,7 +101,7 @@ namespace MarioBrosWF
                 else if (derecha)
                 {
                     ultimaDireccion = DERECHA;
-                    nuevaX += Math.Min(PASO,
+                    nuevaX += Math.Min(Configuracion.PASO,
                         Configuracion.ANCHO_PANTALLA - this.ancho - x);
                     //Si esta en una plataforma
                     if (plataformaActual != null)
@@ -146,7 +146,7 @@ namespace MarioBrosWF
             {
                 this.SetPuedeSaltar(true);
                 this.plataformaActual = p;
-                this.y = p.Y - 22;
+                this.y = p.Y - Configuracion.DIMENSIONES_PERSONAJE[1] + 1;
                 this.gravedadActual = 0;
                 if (derecha || izquierda)
                     imagen = Image.FromFile(FICHERO_SPRITE);

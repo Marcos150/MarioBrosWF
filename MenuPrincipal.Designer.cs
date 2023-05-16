@@ -32,6 +32,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.buttonRanking = new System.Windows.Forms.Button();
             this.listRanking = new System.Windows.Forms.ListBox();
+            this.buttonTamanyo = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonInicio
@@ -73,11 +74,22 @@
             this.listRanking.TabIndex = 4;
             this.listRanking.Visible = false;
             // 
+            // buttonTamanyo
+            // 
+            this.buttonTamanyo.Location = new System.Drawing.Point(515, 148);
+            this.buttonTamanyo.Name = "buttonTamanyo";
+            this.buttonTamanyo.Size = new System.Drawing.Size(200, 50);
+            this.buttonTamanyo.TabIndex = 5;
+            this.buttonTamanyo.Text = "Cambiar tamaño";
+            this.buttonTamanyo.UseVisualStyleBackColor = true;
+            this.buttonTamanyo.Click += new System.EventHandler(this.buttonTamanyo_Click);
+            // 
             // MenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1254, 1129);
+            this.Controls.Add(this.buttonTamanyo);
             this.Controls.Add(this.listRanking);
             this.Controls.Add(this.buttonRanking);
             this.Controls.Add(this.button1);
@@ -95,6 +107,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button buttonRanking;
         private System.Windows.Forms.ListBox listRanking;
+        private System.Windows.Forms.Button buttonTamanyo;
     }
 }
 

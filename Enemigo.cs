@@ -17,11 +17,12 @@ namespace MarioBrosWF
         protected int tiempoVulnerabilidad;
         protected string spriteVulnerable;
 
-        protected Enemigo() : base(15, 15)
+        protected Enemigo() : base(Configuracion.DIMENSIONES_ENEMIGO[0], 
+            Configuracion.DIMENSIONES_ENEMIGO[1])
         {
-            coordenadasX[DERECHA] = new int[] { 80, 96, 112, 128, 144 };
+            coordenadasX[DERECHA] = Configuracion.ANIMACION_ENEMIGO_DERECHA;
             coordenadasY[DERECHA] = new int[] { 0, 0, 0, 0, 0 };
-            coordenadasX[IZQUIERDA] = new int[] { 0, 16, 32, 48, 64 };
+            coordenadasX[IZQUIERDA] = Configuracion.ANIMACION_ENEMIGO_IZQUIERDA;
             coordenadasY[IZQUIERDA] = new int[] { 0, 0, 0, 0, 0 };
             izquierda = false;
             derecha = false;

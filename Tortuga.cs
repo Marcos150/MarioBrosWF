@@ -8,11 +8,11 @@ namespace MarioBrosWF
     {
         public Tortuga() : base()
         {
-            FICHERO_SPRITE = "recursos/spritesAndarTortuga.png";
-            spriteVulnerable = "recursos/tortugaVulnerable.png";
+            FICHERO_SPRITE = Configuracion.CARPETA + "spritesAndarTortuga.png";
+            spriteVulnerable = Configuracion.CARPETA + "tortugaVulnerable.png";
             imagen = Image.FromFile(FICHERO_SPRITE);
-            x = 10;
-            y = 20;
+            x = 20;
+            y = 40;
             vidas = 1;
             puntos = 0;
         }
