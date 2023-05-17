@@ -16,6 +16,7 @@ namespace MarioBrosWF
         public static int PASO = 4;
         public static int TIEMPO_VULNERABILIDAD_ENEMIGOS = 5000; //Milisegundos
         public static int FILAS_MAPA = 5; //Número de filas de map.txt -1
+        public static int GRAVEDAD = 1;
         public static int GRAVEDAD_MAXIMA = 14;
         public static int FUERZA_SALTO = -14;
         public static string CODIGO_SECRETO = "Up, Up, Down, Down, Left, Right, Left, Right, B, A";

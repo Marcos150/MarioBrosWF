@@ -80,8 +80,9 @@ namespace MarioBrosWF
                 Configuracion.DIMENSIONES_ENEMIGO[1] *= 2;
                 Configuracion.DIMENSIONES_PLATAFORMA[0] *= 2;
                 Configuracion.DIMENSIONES_PLATAFORMA[1] *= 2;
-                Configuracion.GRAVEDAD_MAXIMA = 18;
-                Configuracion.FUERZA_SALTO = -18;
+                Configuracion.GRAVEDAD_MAXIMA = 28;
+                Configuracion.FUERZA_SALTO = -28;
+                Configuracion.GRAVEDAD = 2;
 
                 for (int i = 0; i < Configuracion.ANIMACION_PERSONAJE_DERECHA.Length; i++)
                 {
@@ -107,6 +108,7 @@ namespace MarioBrosWF
                 Configuracion.DIMENSIONES_PLATAFORMA[1] /= 2;
                 Configuracion.GRAVEDAD_MAXIMA = 14;
                 Configuracion.FUERZA_SALTO = -14;
+                Configuracion.GRAVEDAD = 1;
 
                 for (int i = 0; i < Configuracion.ANIMACION_PERSONAJE_DERECHA.Length; i++)
                 {

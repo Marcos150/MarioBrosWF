@@ -136,7 +136,7 @@ namespace MarioBrosWF
             //Aumenta gravedad si no se ha alcanzado la gravedad máxima
             //y no se esta en una plataforma
             if (this.GetGravedad() < Configuracion.GRAVEDAD_MAXIMA && plataformaActual == null)
-                gravedadActual++;
+                gravedadActual += Configuracion.GRAVEDAD;
         }
 
         public int ComprobarTipoColision(Plataforma p, List<Enemigo> enemigos)

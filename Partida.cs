@@ -229,7 +229,7 @@ namespace MarioBrosWF
                         if (e.ColisionaCon(p))
                         {
                             e.SetPlataforma(p);
-                            e.Y = p.Y - 14;
+                            e.Y = p.Y - Configuracion.DIMENSIONES_ENEMIGO[1] +1;
                         }
                     }
                 }

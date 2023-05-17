@@ -50,7 +50,7 @@ namespace MarioBrosWF
             if (plataformaActual == null)
                 this.MoverA(this.X, this.Y + gravedadActual);
             if (gravedadActual < Configuracion.GRAVEDAD_MAXIMA && plataformaActual == null)
-                gravedadActual++;
+                gravedadActual += Configuracion.GRAVEDAD;
             if (plataformaActual != null)
                 this.gravedadActual = 0;
         }
