@@ -11,6 +11,7 @@ namespace MarioBrosWF
         protected int puntos;
         protected bool esVulnerable;
         protected int gravedadActual;
+        protected bool estaVivo;
         //Plataforma sobre la que esta el enemigo
         protected Plataforma plataformaActual;
         //Tiempo que pasa desde que es golpeado hasta que se recupara
@@ -26,9 +27,10 @@ namespace MarioBrosWF
             coordenadasY[IZQUIERDA] = new int[] { 0, 0, 0, 0, 0 };
             izquierda = false;
             derecha = false;
+            estaVivo = false;
             ActualizarCoordenadasSprite();
-            x = Configuracion.COORDENADAS_INICIALES[0];
-            y = Configuracion.COORDENADAS_INICIALES[1];
+            x = Configuracion.COORDENADAS_INICIALES_PERSONAJE[0];
+            y = Configuracion.COORDENADAS_INICIALES_PERSONAJE[1];
             esVulnerable = false;
             velocidadActual = Configuracion.VELOCIDAD_INICIAL_ENEMIGOS;
             gravedadActual = 0;
@@ -37,27 +39,25 @@ namespace MarioBrosWF
 
         public void Mover()
         {
-            if (!esVulnerable) 
+            if (estaVivo)
             {
-                int nuevaX = x + velocidadActual;
-                MoverA(nuevaX, y);
-                if (velocidadActual > 0) 
-                    Animar(DERECHA);
-                else if (velocidadActual < 0)
-                    Animar(IZQUIERDA);
+                if (!esVulnerable)
+                {
+                    int nuevaX = x + velocidadActual;
+                    MoverA(nuevaX, y);
+                    if (velocidadActual > 0)
+                        Animar(DERECHA);
+                    else if (velocidadActual < 0)
+                        Animar(IZQUIERDA);
+                }
+
+                if (plataformaActual == null)
+                    this.MoverA(this.X, this.Y + gravedadActual);
+                if (gravedadActual < Configuracion.GRAVEDAD_MAXIMA && plataformaActual == null)
+                    gravedadActual += Configuracion.GRAVEDAD;
+                if (plataformaActual != null)
+                    this.gravedadActual = 0;
             }
-
-            if (plataformaActual == null)
-                this.MoverA(this.X, this.Y + gravedadActual);
-            if (gravedadActual < Configuracion.GRAVEDAD_MAXIMA && plataformaActual == null)
-                gravedadActual += Configuracion.GRAVEDAD;
-            if (plataformaActual != null)
-                this.gravedadActual = 0;
-        }
-
-        public void Recuperarse()
-        {
-
         }
 
         public void CambiarVulnerabilidad()
@@ -75,7 +75,7 @@ namespace MarioBrosWF
                     imagen = Image.FromFile(spriteVulnerable);
                 }
             }
-            else
+            else if (estaVivo)
             {
                 esVulnerable = false;
                 velocidadActual = Configuracion.VELOCIDAD_INICIAL_ENEMIGOS;
@@ -84,9 +84,27 @@ namespace MarioBrosWF
             }
         }
 
+        public void Generar()
+        {
+            estaVivo = true;
+            this.x = Configuracion.COORDENADAS_INICIALES_ENEMIGO[0];
+            this.y = Configuracion.COORDENADAS_INICIALES_ENEMIGO[1];
+        }
+
         public bool EsVulnerable()
         {
             return esVulnerable;
+        }
+
+        public bool EstaVivo()
+        {
+            return estaVivo;
+        }
+
+        public void Exterminado()
+        {
+            this.estaVivo = false;
+            this.vidas = 0;
         }
 
         public void SetPlataforma(Plataforma p)
@@ -107,6 +125,11 @@ namespace MarioBrosWF
         public void RestarTiempo()
         {
             tiempoVulnerabilidad--;
+        }
+
+        public int GetVidas()
+        {
+            return vidas;
         }
     }
 }

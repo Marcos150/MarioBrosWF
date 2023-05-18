@@ -52,8 +52,8 @@ namespace MarioBrosWF
             derecha = false;
             ultimaDireccion = DERECHA;
             ActualizarCoordenadasSprite();
-            x = Configuracion.COORDENADAS_INICIALES[0];
-            y = Configuracion.COORDENADAS_INICIALES[1];
+            x = Configuracion.COORDENADAS_INICIALES_PERSONAJE[0];
+            y = Configuracion.COORDENADAS_INICIALES_PERSONAJE[1];
             gravedadActual = 0;
             puedeSaltar = true;
             puedeCaerse = true;
@@ -173,8 +173,8 @@ namespace MarioBrosWF
 
         public void Reaparecer()
         {
-            x = Configuracion.COORDENADAS_INICIALES[0];
-            y = Configuracion.COORDENADAS_INICIALES[1];
+            x = Configuracion.COORDENADAS_INICIALES_PERSONAJE[0];
+            y = Configuracion.COORDENADAS_INICIALES_PERSONAJE[1];
             MoverA(x, y);
         }
 

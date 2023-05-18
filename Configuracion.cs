@@ -9,7 +9,8 @@ namespace MarioBrosWF
         public static int ANCHO_PANTALLA = 640;
         public static int ALTO_PANTALLA = 375;
         public static int RATIO_ANIMACION = 5;
-        public static int[] COORDENADAS_INICIALES = {10, 32};
+        public static int[] COORDENADAS_INICIALES_PERSONAJE = {100, 32};
+        public static int[] COORDENADAS_INICIALES_ENEMIGO = {10, 32};
         public static int VIDAS_INICIALES = 3;
         public static int USOS_BLOQUES_POW = 3;
         public static int VELOCIDAD_INICIAL_ENEMIGOS = 1;

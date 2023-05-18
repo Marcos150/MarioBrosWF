@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using SharpDX.XInput;
 
@@ -18,6 +19,27 @@ namespace MarioBrosWF
         private Plataforma[] plataformas;
         private BloquePOW pow;
         private Controller mando;
+
+        public Partida()
+        {
+            InitializeComponent();
+            DoubleBuffered = true;
+            this.ClientSize = new Size(Configuracion.ANCHO_PANTALLA,
+                Configuracion.ALTO_PANTALLA);
+            jugador = new Personaje();
+            enemigos = new List<Enemigo>();
+            CrearEnemigos();
+            //5 es el máximo de plataformas por fila
+            plataformas = new Plataforma[Configuracion.FILAS_MAPA * 5];
+            for (int i = 0; i < plataformas.Length; i++)
+            {
+                plataformas[i] = new Plataforma();
+            }
+            CrearPlataformas();
+            ConfigurarMando();
+            timerPartida.Start();
+            timerEnemigos.Start();
+        }
 
         public void SetMenu(MenuPrincipal principal)
         {
@@ -62,26 +84,6 @@ namespace MarioBrosWF
             }
         }
 
-        public Partida()
-        {
-            InitializeComponent();
-            DoubleBuffered = true;
-            this.ClientSize = new Size(Configuracion.ANCHO_PANTALLA,
-                Configuracion.ALTO_PANTALLA);
-            jugador = new Personaje();
-            enemigos = new List<Enemigo>();
-            enemigos.Add(new Tortuga());
-            //5 es el máximo de plataformas por fila
-            plataformas = new Plataforma[Configuracion.FILAS_MAPA*5];
-            for (int i = 0; i < plataformas.Length; i++)
-            {
-                plataformas[i] = new Plataforma();
-            }
-            CrearPlataformas();
-            ConfigurarMando();
-            timerPartida.Start();
-        }
-
         private void Partida_Paint(object sender, PaintEventArgs e)
         {
             jugador.Dibujar(e.Graphics);
@@ -91,13 +93,22 @@ namespace MarioBrosWF
             }
             foreach (Enemigo enemigo in enemigos)
             {
-                enemigo.Dibujar(e.Graphics);
+                if (enemigo.EstaVivo())
+                    enemigo.Dibujar(e.Graphics);
             }
         }
 
         private void GenerarEnemigo()
         {
-
+            bool generado = false;
+            foreach (Enemigo e in enemigos)
+            {
+                if (!e.EstaVivo() && e.GetVidas() > 0 && !generado)
+                {
+                    e.Generar();
+                    generado = true;
+                }
+            }
         }
 
         private void GolpearPOW()
@@ -153,6 +164,12 @@ namespace MarioBrosWF
             jugador.Mover();
             ComprobarTiempoEnemigos();
             MoverEnemigos();
+            ComprobarVictoria();
+        }
+
+        private void timerEnemigos_Tick(object sender, EventArgs e)
+        {
+            GenerarEnemigo();
         }
 
         private void ComprobarColisionJugador()
@@ -183,10 +200,10 @@ namespace MarioBrosWF
             //Enemigos
             foreach (Enemigo e in enemigos)
             {
-                if (jugador.ColisionaCon(e) && !e.EsVulnerable())
+                if (jugador.ColisionaCon(e) && !e.EsVulnerable() && e.EstaVivo())
                     jugador.Reaparecer();
                 else if (jugador.ColisionaCon(e) && e.EsVulnerable())
-                    enemigos.Remove(e);
+                    e.Exterminado();
             }
         }
 
@@ -274,6 +291,35 @@ namespace MarioBrosWF
                         y += Configuracion.ALTO_PANTALLA / Configuracion.FILAS_MAPA - 2; //-1 so that the last line is barely visible
                     }
                 } while(linea != null);
+            }
+        }
+
+        private void CrearEnemigos()
+        {
+            //Esto seguramente se cargará de otra parte para que hayan más niveles
+            for (int i = 0; i < 3; i++)
+            {
+                enemigos.Add(new Tortuga());
+            }
+        }
+
+        private void ComprobarVictoria()
+        {
+            bool quedanEnemigos = false;
+            
+            foreach (Enemigo e in enemigos)
+            {
+                if (e.EstaVivo() || e.GetVidas() > 0)
+                    quedanEnemigos = true;
+            }
+            if (!quedanEnemigos)
+            {
+                //Aquí se pasaría al siguiente nivel
+                timerPartida.Stop();
+                timerEnemigos.Stop();
+                MessageBox.Show("Has completado el juego. Para más novedades" +
+                    ", estáte atento al GitHub", "¡Enhorabuena!");
+                this.Close();
             }
         }
     }

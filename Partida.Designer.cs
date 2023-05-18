@@ -30,12 +30,18 @@
         {
             this.components = new System.ComponentModel.Container();
             this.timerPartida = new System.Windows.Forms.Timer(this.components);
+            this.timerEnemigos = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // timerPartida
             // 
             this.timerPartida.Interval = 30;
             this.timerPartida.Tick += new System.EventHandler(this.timerPartida_Tick);
+            // 
+            // timerEnemigos
+            // 
+            this.timerEnemigos.Interval = 4000;
+            this.timerEnemigos.Tick += new System.EventHandler(this.timerEnemigos_Tick);
             // 
             // Partida
             // 
@@ -58,5 +64,6 @@
         #endregion
 
         private System.Windows.Forms.Timer timerPartida;
+        private System.Windows.Forms.Timer timerEnemigos;
     }
 }
