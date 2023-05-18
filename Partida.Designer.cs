@@ -42,8 +42,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Partida";
-            this.Text = "Partida";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Mario Bros FX";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Partida_FormClosed);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Partida_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Partida_KeyDown);

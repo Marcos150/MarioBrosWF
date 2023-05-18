@@ -124,6 +124,7 @@ namespace MarioBrosWF
             }
             this.ClientSize = new Size(Configuracion.ANCHO_PANTALLA,
                 Configuracion.ALTO_PANTALLA);
+            this.CenterToScreen();
         }
     }
 }

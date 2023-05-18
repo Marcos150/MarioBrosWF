@@ -110,6 +110,9 @@
     <Compile Include="Sprite.cs" />
     <Compile Include="SpriteAnimado.cs" />
     <Compile Include="Tortuga.cs" />
+    <EmbeddedResource Include="MenuGameOver.resx">
+      <DependentUpon>MenuGameOver.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MenuPrincipal.resx">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>
     </EmbeddedResource>

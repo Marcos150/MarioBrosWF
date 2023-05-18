@@ -37,7 +37,8 @@
             // 
             // buttonInicio
             // 
-            this.buttonInicio.Location = new System.Drawing.Point(556, 444);
+            this.buttonInicio.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.buttonInicio.Location = new System.Drawing.Point(547, 144);
             this.buttonInicio.Name = "buttonInicio";
             this.buttonInicio.Size = new System.Drawing.Size(127, 53);
             this.buttonInicio.TabIndex = 0;
@@ -56,7 +57,8 @@
             // 
             // buttonRanking
             // 
-            this.buttonRanking.Location = new System.Drawing.Point(515, 568);
+            this.buttonRanking.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.buttonRanking.Location = new System.Drawing.Point(515, 234);
             this.buttonRanking.Name = "buttonRanking";
             this.buttonRanking.Size = new System.Drawing.Size(200, 50);
             this.buttonRanking.TabIndex = 2;
@@ -66,9 +68,10 @@
             // 
             // listRanking
             // 
+            this.listRanking.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.listRanking.FormattingEnabled = true;
             this.listRanking.ItemHeight = 25;
-            this.listRanking.Location = new System.Drawing.Point(341, 638);
+            this.listRanking.Location = new System.Drawing.Point(356, 290);
             this.listRanking.Name = "listRanking";
             this.listRanking.Size = new System.Drawing.Size(565, 454);
             this.listRanking.TabIndex = 4;
@@ -76,7 +79,8 @@
             // 
             // buttonTamanyo
             // 
-            this.buttonTamanyo.Location = new System.Drawing.Point(515, 148);
+            this.buttonTamanyo.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.buttonTamanyo.Location = new System.Drawing.Point(515, 50);
             this.buttonTamanyo.Name = "buttonTamanyo";
             this.buttonTamanyo.Size = new System.Drawing.Size(200, 50);
             this.buttonTamanyo.TabIndex = 5;
@@ -94,20 +98,22 @@
             this.Controls.Add(this.buttonRanking);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonInicio);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "MenuPrincipal";
-            this.Text = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Mario Bros FX";
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MenuPrincipal_KeyPress);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button buttonInicio;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button buttonRanking;
         private System.Windows.Forms.ListBox listRanking;
         private System.Windows.Forms.Button buttonTamanyo;
+        private System.Windows.Forms.Button buttonInicio;
     }
 }
 
