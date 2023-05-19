@@ -319,6 +319,7 @@ namespace MarioBrosWF
             for (int i = 0; i < 3; i++)
             {
                 enemigos.Add(new Tortuga());
+                enemigos.Add(new Cangrejo());
             }
         }
 

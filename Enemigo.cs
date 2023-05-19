@@ -1,6 +1,7 @@
 ﻿//Clase abstracta que define a los enemigos
 
 using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace MarioBrosWF
 {
@@ -28,8 +29,6 @@ namespace MarioBrosWF
             derecha = false;
             estaVivo = false;
             ActualizarCoordenadasSprite();
-            x = Configuracion.COORDENADAS_INICIALES_PERSONAJE[0];
-            y = Configuracion.COORDENADAS_INICIALES_PERSONAJE[1];
             esVulnerable = false;
             gravedadActual = 0;
             tiempoVulnerabilidad = 0;
@@ -63,6 +62,12 @@ namespace MarioBrosWF
             if (!esVulnerable)
             {
                 vidas--;
+                //Aquí cambia al spritesheet de "estar enfadado"
+                if (vidas == 1 && this is Cangrejo)
+                {
+                    imagen.RotateFlip(RotateFlipType.RotateNoneFlipY);
+                    this.velocidadActual *= 2;
+                }
                 if (vidas == 0)
                 {
                     esVulnerable = true;
@@ -76,9 +81,15 @@ namespace MarioBrosWF
             else if (estaVivo)
             {
                 esVulnerable = false;
-                velocidadActual = Configuracion.VELOCIDAD_INICIAL_ENEMIGOS;
+                if (derecha)
+                    velocidadActual = Configuracion.VELOCIDAD_INICIAL_ENEMIGOS;
+                else if (izquierda)
+                    velocidadActual = -Configuracion.VELOCIDAD_INICIAL_ENEMIGOS;
                 imagen = Image.FromFile(FICHERO_SPRITE);
-                vidas = 1;
+                if (this is Tortuga) 
+                    vidas = 1;
+                else if (this is Cangrejo) 
+                    vidas = 2;
             }
         }
 
