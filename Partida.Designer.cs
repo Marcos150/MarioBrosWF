@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.timerPartida = new System.Windows.Forms.Timer(this.components);
             this.timerEnemigos = new System.Windows.Forms.Timer(this.components);
+            this.lblPuntos = new System.Windows.Forms.Label();
+            this.lblVidas = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // timerPartida
@@ -43,11 +45,32 @@
             this.timerEnemigos.Interval = 4000;
             this.timerEnemigos.Tick += new System.EventHandler(this.timerEnemigos_Tick);
             // 
+            // lblPuntos
+            // 
+            this.lblPuntos.AutoSize = true;
+            this.lblPuntos.Location = new System.Drawing.Point(12, 9);
+            this.lblPuntos.Name = "lblPuntos";
+            this.lblPuntos.Size = new System.Drawing.Size(70, 25);
+            this.lblPuntos.TabIndex = 0;
+            this.lblPuntos.Text = "label1";
+            // 
+            // lblVidas
+            // 
+            this.lblVidas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblVidas.AutoSize = true;
+            this.lblVidas.Location = new System.Drawing.Point(696, 9);
+            this.lblVidas.Name = "lblVidas";
+            this.lblVidas.Size = new System.Drawing.Size(70, 25);
+            this.lblVidas.TabIndex = 1;
+            this.lblVidas.Text = "label1";
+            // 
             // Partida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblVidas);
+            this.Controls.Add(this.lblPuntos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Partida";
@@ -58,6 +81,7 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Partida_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Partida_KeyUp);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -65,5 +89,7 @@
 
         private System.Windows.Forms.Timer timerPartida;
         private System.Windows.Forms.Timer timerEnemigos;
+        private System.Windows.Forms.Label lblPuntos;
+        private System.Windows.Forms.Label lblVidas;
     }
 }

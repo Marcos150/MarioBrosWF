@@ -163,7 +163,8 @@ namespace MarioBrosWF
 
         private void ActualizarHUD()
         {
-
+            lblPuntos.Text = "Puntos: " + jugador.GetPuntos();
+            lblVidas.Text = "Vidas: " + jugador.GetVidas();
         }
 
         private void Partida_FormClosed(object sender, FormClosedEventArgs e)
@@ -181,7 +182,8 @@ namespace MarioBrosWF
             jugador.Mover();
             ComprobarTiempoEnemigos();
             MoverEnemigos();
-            ComprobarVictoria();
+            ActualizarHUD();
+            ComprobarFinPartida();
         }
 
         private void timerEnemigos_Tick(object sender, EventArgs e)
@@ -320,7 +322,7 @@ namespace MarioBrosWF
             }
         }
 
-        private void ComprobarVictoria()
+        private void ComprobarFinPartida()
         {
             bool quedanEnemigos = false;
             
@@ -329,6 +331,7 @@ namespace MarioBrosWF
                 if (e.EstaVivo() || e.GetVidas() > 0)
                     quedanEnemigos = true;
             }
+            //Se derrotan todos los enemigos
             if (!quedanEnemigos)
             {
                 //Aquí se pasaría al siguiente nivel
@@ -338,6 +341,7 @@ namespace MarioBrosWF
                     ", estáte atento al GitHub", "¡Enhorabuena!");
                 GameOver();
             }
+            //El personaje se queda sin vidas
             if (jugador.GetVidas() <= 0)
             {
                 timerPartida.Stop();
