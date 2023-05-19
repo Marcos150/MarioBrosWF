@@ -11,8 +11,6 @@ namespace MarioBrosWF
             FICHERO_SPRITE = Configuracion.CARPETA + "spritesAndarTortuga.png";
             spriteVulnerable = Configuracion.CARPETA + "tortugaVulnerable.png";
             imagen = Image.FromFile(FICHERO_SPRITE);
-            x = 20;
-            y = 40;
             vidas = 1;
         }
     }

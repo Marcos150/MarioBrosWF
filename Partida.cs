@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 using SharpDX.XInput;
 
@@ -27,6 +26,7 @@ namespace MarioBrosWF
             DoubleBuffered = true;
             this.ClientSize = new Size(Configuracion.ANCHO_PANTALLA,
                 Configuracion.ALTO_PANTALLA);
+            Configuracion.COORDENADAS_INICIALES_ENEMIGO[0] = Configuracion.ANCHO_PANTALLA / 10;
             jugador = new Personaje();
             enemigos = new List<Enemigo>();
             gameOver = false;
@@ -109,6 +109,20 @@ namespace MarioBrosWF
                 {
                     e.Generar();
                     generado = true;
+                    //Lado izquierdo
+                    if (Configuracion.COORDENADAS_INICIALES_ENEMIGO[0] == Configuracion.ANCHO_PANTALLA / 10)
+                    {
+                        Configuracion.COORDENADAS_INICIALES_ENEMIGO[0] += (Configuracion.ANCHO_PANTALLA / 5) * 4;
+                        e.SetDerecha(true);
+                        e.SetVelocidad(Configuracion.VELOCIDAD_INICIAL_ENEMIGOS);
+                    }
+                    //Lado derecho
+                    else
+                    {
+                        Configuracion.COORDENADAS_INICIALES_ENEMIGO[0] = Configuracion.ANCHO_PANTALLA / 10;
+                        e.SetIzquierda(true);
+                        e.SetVelocidad(-Configuracion.VELOCIDAD_INICIAL_ENEMIGOS);
+                    }
                 }
             }
         }
@@ -233,9 +247,7 @@ namespace MarioBrosWF
                 {
                     e.RestarTiempo();
                     if (e.GetTiempo() <= 0)
-                    {
                         e.CambiarVulnerabilidad();
-                    }
                 }
             }
         }

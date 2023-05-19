@@ -31,7 +31,6 @@ namespace MarioBrosWF
             x = Configuracion.COORDENADAS_INICIALES_PERSONAJE[0];
             y = Configuracion.COORDENADAS_INICIALES_PERSONAJE[1];
             esVulnerable = false;
-            velocidadActual = Configuracion.VELOCIDAD_INICIAL_ENEMIGOS;
             gravedadActual = 0;
             tiempoVulnerabilidad = 0;
         }
@@ -44,9 +43,9 @@ namespace MarioBrosWF
                 {
                     int nuevaX = x + velocidadActual;
                     MoverA(nuevaX, y);
-                    if (velocidadActual > 0)
+                    if (derecha)
                         Animar(DERECHA);
-                    else if (velocidadActual < 0)
+                    else if (izquierda)
                         Animar(IZQUIERDA);
                 }
 
@@ -129,6 +128,21 @@ namespace MarioBrosWF
         public int GetVidas()
         {
             return vidas;
+        }
+
+        public void SetVelocidad(int velocidad)
+        {
+            this.velocidadActual = velocidad;
+        }
+
+        public void SetDerecha(bool derecha)
+        {
+            this.derecha = derecha;
+        }
+
+        public void SetIzquierda(bool izquierda)
+        {
+            this.izquierda = izquierda;
         }
     }
 }
