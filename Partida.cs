@@ -19,6 +19,7 @@ namespace MarioBrosWF
         private Plataforma[] plataformas;
         private BloquePOW pow;
         private Controller mando;
+        private bool gameOver;
 
         public Partida()
         {
@@ -28,6 +29,7 @@ namespace MarioBrosWF
                 Configuracion.ALTO_PANTALLA);
             jugador = new Personaje();
             enemigos = new List<Enemigo>();
+            gameOver = false;
             CrearEnemigos();
             //5 es el máximo de plataformas por fila
             plataformas = new Plataforma[Configuracion.FILAS_MAPA * 5];
@@ -152,7 +154,8 @@ namespace MarioBrosWF
 
         private void Partida_FormClosed(object sender, FormClosedEventArgs e)
         {
-            //principal.Show();
+            if (!gameOver)
+                principal.Show();
         }
 
         private void timerPartida_Tick(object sender, EventArgs e)
@@ -323,10 +326,18 @@ namespace MarioBrosWF
                     ", estáte atento al GitHub", "¡Enhorabuena!");
                 GameOver();
             }
+            if (jugador.GetVidas() <= 0)
+            {
+                timerPartida.Stop();
+                timerEnemigos.Stop();
+                MessageBox.Show("Has perdido", "Vaya...");
+                GameOver();
+            }
         }
 
         private void GameOver()
         {
+            gameOver = true;
             MenuGameOver over = new MenuGameOver(jugador.GetPuntos());
             over.SetMenu(this.principal);
             over.Show();

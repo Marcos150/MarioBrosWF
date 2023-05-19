@@ -175,6 +175,7 @@ namespace MarioBrosWF
         {
             x = Configuracion.COORDENADAS_INICIALES_PERSONAJE[0];
             y = Configuracion.COORDENADAS_INICIALES_PERSONAJE[1];
+            vidas--;
             MoverA(x, y);
         }
 
@@ -231,6 +232,11 @@ namespace MarioBrosWF
         public void SetPuntos(int puntos)
         {
             this.puntos = puntos;
+        }
+
+        public int GetVidas()
+        {
+            return vidas;
         }
     }
 }
