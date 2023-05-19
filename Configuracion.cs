@@ -31,6 +31,7 @@ namespace MarioBrosWF
         public static int[] ANIMACION_ENEMIGO_DERECHA = { 80, 96, 112, 128, 144 };
         public static int[] ANIMACION_ENEMIGO_IZQUIERDA = { 0, 16, 32, 48, 64 };
         public static string CARPETA = "recursos/spritesChiquitos/";
+        public static string RANKING = "recursos/ranking.json";
 
         public static GamepadButtonFlags BOTON_SALTO = GamepadButtonFlags.A;
     }

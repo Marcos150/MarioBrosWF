@@ -12,7 +12,6 @@ namespace MarioBrosWF
     public partial class MenuPrincipal : Form
     {
         private bool secreto;
-        private const string RANKING = "recursos/ranking.json";
 
         public MenuPrincipal()
         {
@@ -53,9 +52,10 @@ namespace MarioBrosWF
         {
             listRanking.Items.Clear();
             //Lectura
-            string jsonString2 = File.ReadAllText(RANKING);
+            string jsonString2 = File.ReadAllText(Configuracion.RANKING);
             List<RegistroRanking> lista = JsonSerializer.Deserialize<List<RegistroRanking>>(jsonString2);
-            
+            lista.Sort((s1, s2) => s2.Puntuacion.CompareTo(s1.Puntuacion));
+
             foreach (RegistroRanking r in lista)
             {
                 listRanking.Items.Add(r.ToString());
@@ -65,7 +65,7 @@ namespace MarioBrosWF
             //Escritura
             var opciones = new JsonSerializerOptions { WriteIndented = true };
             string jsonString = JsonSerializer.Serialize(lista, opciones);
-            File.WriteAllText(RANKING, jsonString);
+            File.WriteAllText(Configuracion.RANKING, jsonString);
         }
 
         private void buttonTamanyo_Click(object sender, EventArgs e)
