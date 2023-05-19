@@ -6,21 +6,36 @@ namespace MarioBrosWF
 {
     public partial class MenuGameOver : Form
     {
-        public MenuGameOver()
+        private MenuPrincipal principal;
+        private int puntos;
+
+        public MenuGameOver(int puntos)
         {
             InitializeComponent();
             this.Width = Configuracion.ANCHO_PANTALLA;
             this.Height = Configuracion.ALTO_PANTALLA;
+            this.puntos = puntos;
+            this.lblPuntos.Text = "Puntuación final: " + puntos + " puntos";
         }
 
-        private void Iniciar()
+        public void SetMenu(MenuPrincipal principal)
         {
+            this.principal = principal;
+        }
 
+        public MenuPrincipal GetMenu()
+        {
+            return this.principal;
         }
 
         private RegistroRanking NuevoRegistro()
         {
             return new RegistroRanking();
+        }
+
+        private void MenuGameOver_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            principal.Show();
         }
     }
 }

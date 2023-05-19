@@ -152,7 +152,7 @@ namespace MarioBrosWF
 
         private void Partida_FormClosed(object sender, FormClosedEventArgs e)
         {
-            principal.Show();
+            //principal.Show();
         }
 
         private void timerPartida_Tick(object sender, EventArgs e)
@@ -186,7 +186,6 @@ namespace MarioBrosWF
                             ComprobarEnemigosGolpeados(p);
                         else
                             jugador.SetHaGolpeado(false);
-
                     }
                 }
             }
@@ -202,8 +201,11 @@ namespace MarioBrosWF
             {
                 if (jugador.ColisionaCon(e) && !e.EsVulnerable() && e.EstaVivo())
                     jugador.Reaparecer();
-                else if (jugador.ColisionaCon(e) && e.EsVulnerable())
+                else if (jugador.ColisionaCon(e) && e.EsVulnerable() && e.EstaVivo())
+                {
                     e.Exterminado();
+                    jugador.SetPuntos(jugador.GetPuntos() + Configuracion.PUNTOS_ENEMIGO);
+                }
             }
         }
 
@@ -319,8 +321,16 @@ namespace MarioBrosWF
                 timerEnemigos.Stop();
                 MessageBox.Show("Has completado el juego. Para más novedades" +
                     ", estáte atento al GitHub", "¡Enhorabuena!");
-                this.Close();
+                GameOver();
             }
+        }
+
+        private void GameOver()
+        {
+            MenuGameOver over = new MenuGameOver(jugador.GetPuntos());
+            over.SetMenu(this.principal);
+            over.Show();
+            this.Close();
         }
     }
 }

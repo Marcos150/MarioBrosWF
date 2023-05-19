@@ -8,7 +8,6 @@ namespace MarioBrosWF
     {
         protected int vidas;
         protected int velocidadActual;
-        protected int puntos;
         protected bool esVulnerable;
         protected int gravedadActual;
         protected bool estaVivo;

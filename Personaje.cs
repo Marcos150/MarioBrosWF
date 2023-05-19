@@ -222,5 +222,15 @@ namespace MarioBrosWF
         { 
             return plataformaActual; 
         }
+
+        public int GetPuntos()
+        {
+            return puntos;
+        }
+
+        public void SetPuntos(int puntos)
+        {
+            this.puntos = puntos;
+        }
     }
 }

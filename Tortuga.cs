@@ -14,7 +14,6 @@ namespace MarioBrosWF
             x = 20;
             y = 40;
             vidas = 1;
-            puntos = 0;
         }
     }
 }

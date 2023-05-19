@@ -10,7 +10,6 @@ namespace MarioBrosWF
         {
             this.estaEnfadado = false;
             vidas = 2;
-            puntos = 0;
         }
     }
 }

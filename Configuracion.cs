@@ -14,6 +14,7 @@ namespace MarioBrosWF
         public static int VIDAS_INICIALES = 3;
         public static int USOS_BLOQUES_POW = 3;
         public static int VELOCIDAD_INICIAL_ENEMIGOS = 1;
+        public static int PUNTOS_ENEMIGO = 300;
         public static int PASO = 4;
         public static int TIEMPO_VULNERABILIDAD_ENEMIGOS = 5000; //Milisegundos
         public static int FILAS_MAPA = 5; //Número de filas de map.txt -1
