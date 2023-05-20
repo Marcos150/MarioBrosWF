@@ -21,7 +21,7 @@ namespace MarioBrosWF
         private string spriteQuietoDerecha;
         //Plataforma sobre la que esta el jugador
         private Plataforma plataformaActual;
-        //Determina si ya ha golpeado una plataforma por debajo
+        //Determina si ya ha golpeado una plataforma por debajo o un bloque POW
         private bool haGolpeado;
 
         public bool Izquierda

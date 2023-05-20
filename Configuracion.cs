@@ -11,6 +11,7 @@ namespace MarioBrosWF
         public static int RATIO_ANIMACION = 5;
         public static int[] COORDENADAS_INICIALES_PERSONAJE = {315, 32};
         public static int[] COORDENADAS_INICIALES_ENEMIGO = {64, 32};
+        public static int[] COORDENADAS_INICIALES_POW = {315, 250};
         public static int VIDAS_INICIALES = 3;
         public static int USOS_BLOQUES_POW = 3;
         public static int VELOCIDAD_INICIAL_ENEMIGOS = 1;
@@ -25,6 +26,7 @@ namespace MarioBrosWF
 
         public static int[] DIMENSIONES_PERSONAJE = {16, 23};
         public static int[] DIMENSIONES_ENEMIGO = {16, 16};
+        public static int[] DIMENSIONES_POW = {16, 16};
         public static int[] DIMENSIONES_PLATAFORMA = {128, 16};
         public static int[] ANIMACION_PERSONAJE_DERECHA = { 80, 96, 112, 128, 144 };
         public static int[] ANIMACION_PERSONAJE_IZQUIERDA = { 0, 16, 32, 48, 64 };

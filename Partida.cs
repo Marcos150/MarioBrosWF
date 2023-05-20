@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using SharpDX.XInput;
 
@@ -29,6 +30,7 @@ namespace MarioBrosWF
             Configuracion.COORDENADAS_INICIALES_ENEMIGO[0] = Configuracion.ANCHO_PANTALLA / 10;
             jugador = new Personaje();
             enemigos = new List<Enemigo>();
+            pow = new BloquePOW();
             gameOver = false;
             CrearEnemigos();
             //5 es el máximo de plataformas por fila
@@ -89,6 +91,8 @@ namespace MarioBrosWF
         private void Partida_Paint(object sender, PaintEventArgs e)
         {
             jugador.Dibujar(e.Graphics);
+            if (pow.GetUsosRestantes() > 0)
+                pow.Dibujar(e.Graphics);
             foreach (Plataforma p in plataformas)
             {
                 p.Dibujar(e.Graphics);
@@ -129,7 +133,10 @@ namespace MarioBrosWF
 
         private void GolpearPOW()
         {
-
+            enemigos.Where(e => e.EstaVivo()).ToList().ForEach(e => e.CambiarVulnerabilidad());
+            pow.SetUsosRestantes(pow.GetUsosRestantes() - 1);
+            pow.CambiarSprite();
+            jugador.SetHaGolpeado(true);
         }
 
         private void Partida_KeyDown(object sender, KeyEventArgs e)
@@ -225,6 +232,13 @@ namespace MarioBrosWF
                     e.Exterminado();
                     jugador.SetPuntos(jugador.GetPuntos() + Configuracion.PUNTOS_ENEMIGO);
                 }
+            }
+
+            //Bloque POW
+            if (jugador.ColisionaCon(pow) && !jugador.HaGolpeado())
+            {
+                if (pow.GetUsosRestantes() > 0)
+                    GolpearPOW();
             }
         }
 
