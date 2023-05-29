@@ -35,11 +35,6 @@ namespace MarioBrosWF
 
         }
 
-        private void MenuPrincipal_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-        }
-
         private void buttonInicio_Click(object sender, EventArgs e)
         {
             Partida p = new Partida();
@@ -48,7 +43,7 @@ namespace MarioBrosWF
             this.Hide();
         }
 
-        private void buttonRanking_Click(object sender, EventArgs e)
+        private void mostrarRanking()
         {
             listRanking.Items.Clear();
             //Lectura
@@ -60,12 +55,16 @@ namespace MarioBrosWF
             {
                 listRanking.Items.Add(r.ToString());
             }
-            listRanking.Show();
 
             //Escritura
             var opciones = new JsonSerializerOptions { WriteIndented = true };
             string jsonString = JsonSerializer.Serialize(lista, opciones);
             File.WriteAllText(Configuracion.RANKING, jsonString);
+        }
+
+        private void MenuPrincipal_Activated(object sender, EventArgs e)
+        {
+            mostrarRanking();
         }
 
         private void buttonTamanyo_Click(object sender, EventArgs e)

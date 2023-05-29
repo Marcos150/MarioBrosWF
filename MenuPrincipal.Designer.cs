@@ -30,7 +30,6 @@
         {
             this.buttonInicio = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.buttonRanking = new System.Windows.Forms.Button();
             this.listRanking = new System.Windows.Forms.ListBox();
             this.buttonTamanyo = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -38,9 +37,9 @@
             // buttonInicio
             // 
             this.buttonInicio.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonInicio.Location = new System.Drawing.Point(547, 144);
+            this.buttonInicio.Location = new System.Drawing.Point(558, 223);
             this.buttonInicio.Name = "buttonInicio";
-            this.buttonInicio.Size = new System.Drawing.Size(127, 53);
+            this.buttonInicio.Size = new System.Drawing.Size(200, 53);
             this.buttonInicio.TabIndex = 0;
             this.buttonInicio.Text = "Comenzar";
             this.buttonInicio.UseVisualStyleBackColor = true;
@@ -55,32 +54,19 @@
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // buttonRanking
-            // 
-            this.buttonRanking.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonRanking.Location = new System.Drawing.Point(515, 234);
-            this.buttonRanking.Name = "buttonRanking";
-            this.buttonRanking.Size = new System.Drawing.Size(200, 50);
-            this.buttonRanking.TabIndex = 2;
-            this.buttonRanking.Text = "Mostrar ranking";
-            this.buttonRanking.UseVisualStyleBackColor = true;
-            this.buttonRanking.Click += new System.EventHandler(this.buttonRanking_Click);
-            // 
             // listRanking
             // 
             this.listRanking.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.listRanking.FormattingEnabled = true;
             this.listRanking.ItemHeight = 25;
-            this.listRanking.Location = new System.Drawing.Point(356, 290);
+            this.listRanking.Location = new System.Drawing.Point(366, 282);
             this.listRanking.Name = "listRanking";
-            this.listRanking.Size = new System.Drawing.Size(565, 454);
+            this.listRanking.Size = new System.Drawing.Size(579, 454);
             this.listRanking.TabIndex = 4;
-            this.listRanking.Visible = false;
             // 
             // buttonTamanyo
             // 
             this.buttonTamanyo.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonTamanyo.Location = new System.Drawing.Point(515, 50);
+            this.buttonTamanyo.Location = new System.Drawing.Point(558, 125);
             this.buttonTamanyo.Name = "buttonTamanyo";
             this.buttonTamanyo.Size = new System.Drawing.Size(200, 50);
             this.buttonTamanyo.TabIndex = 5;
@@ -95,7 +81,6 @@
             this.ClientSize = new System.Drawing.Size(1254, 1129);
             this.Controls.Add(this.buttonTamanyo);
             this.Controls.Add(this.listRanking);
-            this.Controls.Add(this.buttonRanking);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonInicio);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -103,14 +88,13 @@
             this.Name = "MenuPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Mario Bros FX";
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MenuPrincipal_KeyPress);
+            this.Activated += new System.EventHandler(this.MenuPrincipal_Activated);
             this.ResumeLayout(false);
 
         }
 
         #endregion
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button buttonRanking;
         private System.Windows.Forms.ListBox listRanking;
         private System.Windows.Forms.Button buttonTamanyo;
         private System.Windows.Forms.Button buttonInicio;

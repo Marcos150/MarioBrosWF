@@ -60,6 +60,8 @@ namespace MarioBrosWF
             var opciones = new JsonSerializerOptions { WriteIndented = true };
             string jsonString = JsonSerializer.Serialize(lista, opciones);
             File.WriteAllText(Configuracion.RANKING, jsonString);
+
+            buttonRegistrar.Hide();
         }
 
         private void buttonMenu_Click(object sender, System.EventArgs e)
