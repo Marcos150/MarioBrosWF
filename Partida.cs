@@ -50,7 +50,8 @@ namespace MarioBrosWF
                 gameOver = false;
                 //5 es el máximo de plataformas por fila
                 plataformas = new Plataforma[Configuracion.FILAS_MAPA * 5];
-                for (int i = 0; i < plataformas.Length; i++)
+                plataformas[0] = pow;
+                for (int i = 1; i < plataformas.Length; i++)
                 {
                     plataformas[i] = new Plataforma();
                 }
@@ -111,7 +112,8 @@ namespace MarioBrosWF
                 pow.Dibujar(e.Graphics);
             foreach (Plataforma p in plataformas)
             {
-                p.Dibujar(e.Graphics);
+                if (!(p is BloquePOW))
+                    p.Dibujar(e.Graphics);
             }
             foreach (Enemigo enemigo in enemigos)
             {
@@ -222,7 +224,7 @@ namespace MarioBrosWF
                 jugador.SetPuedeCaerse(true);
                 foreach (Plataforma p in plataformas)
                 {
-                    if (jugador.ColisionaCon(p))
+                    if (!(p is BloquePOW) && jugador.ColisionaCon(p))
                     {
                         if (jugador.ComprobarTipoColision(p, enemigos) == 1)
                             ComprobarEnemigosGolpeados(p);
@@ -251,9 +253,10 @@ namespace MarioBrosWF
             }
 
             //Bloque POW
-            if (jugador.ColisionaCon(pow) && !jugador.HaGolpeado())
+            if (jugador.ColisionaCon(pow) && pow.GetUsosRestantes() > 0)
             {
-                if (pow.GetUsosRestantes() > 0)
+                if (jugador.ComprobarTipoColision(pow, enemigos) == 1 && 
+                    !jugador.HaGolpeado())
                     GolpearPOW();
             }
         }
@@ -318,7 +321,7 @@ namespace MarioBrosWF
         private void CrearPlataformas()
         {
             string linea;
-            int contador = 0;
+            int contador = 1;
             int y = 0;
             using (StreamReader fichero = new StreamReader("recursos/map.txt"))
             {
