@@ -37,7 +37,7 @@
             // buttonInicio
             // 
             this.buttonInicio.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonInicio.Location = new System.Drawing.Point(558, 223);
+            this.buttonInicio.Location = new System.Drawing.Point(545, 154);
             this.buttonInicio.Name = "buttonInicio";
             this.buttonInicio.Size = new System.Drawing.Size(200, 53);
             this.buttonInicio.TabIndex = 0;
@@ -58,7 +58,7 @@
             // 
             this.listRanking.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.listRanking.ItemHeight = 25;
-            this.listRanking.Location = new System.Drawing.Point(366, 282);
+            this.listRanking.Location = new System.Drawing.Point(366, 213);
             this.listRanking.Name = "listRanking";
             this.listRanking.Size = new System.Drawing.Size(579, 454);
             this.listRanking.TabIndex = 4;
@@ -66,7 +66,7 @@
             // buttonTamanyo
             // 
             this.buttonTamanyo.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonTamanyo.Location = new System.Drawing.Point(558, 125);
+            this.buttonTamanyo.Location = new System.Drawing.Point(545, 75);
             this.buttonTamanyo.Name = "buttonTamanyo";
             this.buttonTamanyo.Size = new System.Drawing.Size(200, 50);
             this.buttonTamanyo.TabIndex = 5;
@@ -78,7 +78,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1254, 1129);
+            this.ClientSize = new System.Drawing.Size(1254, 679);
             this.Controls.Add(this.buttonTamanyo);
             this.Controls.Add(this.listRanking);
             this.Controls.Add(this.button1);
@@ -87,7 +87,7 @@
             this.MaximizeBox = false;
             this.Name = "MenuPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Mario Bros FX";
+            this.Text = "Mario Bros WF";
             this.Activated += new System.EventHandler(this.MenuPrincipal_Activated);
             this.ResumeLayout(false);
 
