@@ -58,7 +58,7 @@
             // 
             this.lblVidas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblVidas.AutoSize = true;
-            this.lblVidas.Location = new System.Drawing.Point(696, 9);
+            this.lblVidas.Location = new System.Drawing.Point(1150, 9);
             this.lblVidas.Name = "lblVidas";
             this.lblVidas.Size = new System.Drawing.Size(70, 25);
             this.lblVidas.TabIndex = 1;
@@ -68,14 +68,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1254, 679);
             this.Controls.Add(this.lblVidas);
             this.Controls.Add(this.lblPuntos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Partida";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Mario Bros FX";
+            this.Text = "Mario Bros WF";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Partida_FormClosed);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Partida_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Partida_KeyDown);

@@ -36,11 +36,21 @@
             lblNombre = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
+            // lblNombre
+            // 
+            lblNombre.Anchor = System.Windows.Forms.AnchorStyles.None;
+            lblNombre.AutoSize = true;
+            lblNombre.Location = new System.Drawing.Point(551, 255);
+            lblNombre.Name = "lblNombre";
+            lblNombre.Size = new System.Drawing.Size(93, 25);
+            lblNombre.TabIndex = 3;
+            lblNombre.Text = "Nombre:";
+            // 
             // lblPuntos
             // 
             this.lblPuntos.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblPuntos.AutoSize = true;
-            this.lblPuntos.Location = new System.Drawing.Point(276, 60);
+            this.lblPuntos.Location = new System.Drawing.Point(503, 185);
             this.lblPuntos.Name = "lblPuntos";
             this.lblPuntos.Size = new System.Drawing.Size(70, 25);
             this.lblPuntos.TabIndex = 0;
@@ -49,7 +59,7 @@
             // buttonRegistrar
             // 
             this.buttonRegistrar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonRegistrar.Location = new System.Drawing.Point(281, 288);
+            this.buttonRegistrar.Location = new System.Drawing.Point(508, 402);
             this.buttonRegistrar.Name = "buttonRegistrar";
             this.buttonRegistrar.Size = new System.Drawing.Size(179, 52);
             this.buttonRegistrar.TabIndex = 1;
@@ -60,25 +70,15 @@
             // textBoxNombre
             // 
             this.textBoxNombre.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.textBoxNombre.Location = new System.Drawing.Point(166, 169);
+            this.textBoxNombre.Location = new System.Drawing.Point(393, 283);
             this.textBoxNombre.Name = "textBoxNombre";
             this.textBoxNombre.Size = new System.Drawing.Size(429, 31);
             this.textBoxNombre.TabIndex = 2;
             // 
-            // lblNombre
-            // 
-            lblNombre.Anchor = System.Windows.Forms.AnchorStyles.None;
-            lblNombre.AutoSize = true;
-            lblNombre.Location = new System.Drawing.Point(324, 141);
-            lblNombre.Name = "lblNombre";
-            lblNombre.Size = new System.Drawing.Size(93, 25);
-            lblNombre.TabIndex = 3;
-            lblNombre.Text = "Nombre:";
-            // 
             // buttonMenu
             // 
             this.buttonMenu.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonMenu.Location = new System.Drawing.Point(281, 373);
+            this.buttonMenu.Location = new System.Drawing.Point(508, 487);
             this.buttonMenu.Name = "buttonMenu";
             this.buttonMenu.Size = new System.Drawing.Size(179, 47);
             this.buttonMenu.TabIndex = 4;
@@ -90,7 +90,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1254, 679);
             this.Controls.Add(this.buttonMenu);
             this.Controls.Add(lblNombre);
             this.Controls.Add(this.textBoxNombre);
