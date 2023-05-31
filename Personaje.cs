@@ -52,8 +52,6 @@ namespace MarioBrosWF
             derecha = false;
             ultimaDireccion = DERECHA;
             ActualizarCoordenadasSprite();
-            x = Configuracion.COORDENADAS_INICIALES_PERSONAJE[0];
-            y = Configuracion.COORDENADAS_INICIALES_PERSONAJE[1];
             gravedadActual = 0;
             puedeSaltar = true;
             puedeCaerse = true;
@@ -173,10 +171,10 @@ namespace MarioBrosWF
 
         public void Reaparecer()
         {
-            x = Configuracion.COORDENADAS_INICIALES_PERSONAJE[0];
-            y = Configuracion.COORDENADAS_INICIALES_PERSONAJE[1];
+            gravedadActual = 0;
+            this.MoverA(Configuracion.COORDENADAS_INICIALES_PERSONAJE[0], 
+                Configuracion.COORDENADAS_INICIALES_PERSONAJE[1]);
             vidas--;
-            MoverA(x, y);
         }
 
         public void SetGravedad(int g)

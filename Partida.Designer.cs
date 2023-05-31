@@ -33,6 +33,7 @@
             this.timerEnemigos = new System.Windows.Forms.Timer(this.components);
             this.lblPuntos = new System.Windows.Forms.Label();
             this.lblVidas = new System.Windows.Forms.Label();
+            this.lblLevel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // timerPartida
@@ -64,11 +65,22 @@
             this.lblVidas.TabIndex = 1;
             this.lblVidas.Text = "label1";
             // 
+            // lblLevel
+            // 
+            this.lblLevel.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblLevel.AutoSize = true;
+            this.lblLevel.Location = new System.Drawing.Point(560, 9);
+            this.lblLevel.Name = "lblLevel";
+            this.lblLevel.Size = new System.Drawing.Size(70, 25);
+            this.lblLevel.TabIndex = 2;
+            this.lblLevel.Text = "label1";
+            // 
             // Partida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1254, 679);
+            this.Controls.Add(this.lblLevel);
             this.Controls.Add(this.lblVidas);
             this.Controls.Add(this.lblPuntos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -91,5 +103,6 @@
         private System.Windows.Forms.Timer timerEnemigos;
         private System.Windows.Forms.Label lblPuntos;
         private System.Windows.Forms.Label lblVidas;
+        private System.Windows.Forms.Label lblLevel;
     }
 }

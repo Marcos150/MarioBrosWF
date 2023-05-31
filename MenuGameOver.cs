@@ -52,6 +52,7 @@ namespace MarioBrosWF
             {
                 lista.Add(new RegistroRanking(puntos, textBoxNombre.Text));
                 MessageBox.Show("Registro añadido correctamente");
+                buttonRegistrar.Hide();
             }
             else
                 MessageBox.Show("Tienes que escribir un nombre", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -60,8 +61,6 @@ namespace MarioBrosWF
             var opciones = new JsonSerializerOptions { WriteIndented = true };
             string jsonString = JsonSerializer.Serialize(lista, opciones);
             File.WriteAllText(Configuracion.RANKING, jsonString);
-
-            buttonRegistrar.Hide();
         }
 
         private void buttonMenu_Click(object sender, System.EventArgs e)

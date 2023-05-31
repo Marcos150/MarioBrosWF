@@ -1,7 +1,7 @@
 ﻿//Clase abstracta que define a los enemigos
 
 using System.Drawing;
-using System.Drawing.Imaging;
+
 
 namespace MarioBrosWF
 {
@@ -18,7 +18,7 @@ namespace MarioBrosWF
         protected int tiempoVulnerabilidad;
         protected string spriteVulnerable;
 
-        protected Enemigo() : base(Configuracion.DIMENSIONES_ENEMIGO[0], 
+        public Enemigo() : base(Configuracion.DIMENSIONES_ENEMIGO[0], 
             Configuracion.DIMENSIONES_ENEMIGO[1])
         {
             coordenadasX[DERECHA] = Configuracion.ANIMACION_ENEMIGO_DERECHA;

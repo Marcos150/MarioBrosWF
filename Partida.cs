@@ -19,6 +19,7 @@ namespace MarioBrosWF
         private Plataforma[] plataformas;
         private BloquePOW pow;
         private Controller mando;
+        private int nivelActual;
         private bool gameOver;
 
         public Partida()
@@ -28,21 +29,36 @@ namespace MarioBrosWF
             this.ClientSize = new Size(Configuracion.ANCHO_PANTALLA,
                 Configuracion.ALTO_PANTALLA);
             Configuracion.COORDENADAS_INICIALES_ENEMIGO[0] = Configuracion.ANCHO_PANTALLA / 10;
+            nivelActual = 0;
             jugador = new Personaje();
+            IniciarNivel();
+        }
+
+        private void IniciarNivel()
+        {
+            lblLevel.Text = "Nivel " + (nivelActual+1);
+            jugador.MoverA(Configuracion.COORDENADAS_INICIALES_PERSONAJE[0], 
+                Configuracion.COORDENADAS_INICIALES_PERSONAJE[1]);
+            jugador.SetGravedad(0);
+            jugador.SetGravedad(0);
             enemigos = new List<Enemigo>();
-            pow = new BloquePOW();
-            gameOver = false;
             CrearEnemigos();
-            //5 es el máximo de plataformas por fila
-            plataformas = new Plataforma[Configuracion.FILAS_MAPA * 5];
-            for (int i = 0; i < plataformas.Length; i++)
+            //Si aún quedan niveles, se sigue con el proceso
+            if (!gameOver)
             {
-                plataformas[i] = new Plataforma();
+                pow = new BloquePOW();
+                gameOver = false;
+                //5 es el máximo de plataformas por fila
+                plataformas = new Plataforma[Configuracion.FILAS_MAPA * 5];
+                for (int i = 0; i < plataformas.Length; i++)
+                {
+                    plataformas[i] = new Plataforma();
+                }
+                CrearPlataformas();
+                ConfigurarMando();
+                timerPartida.Start();
+                timerEnemigos.Start();
             }
-            CrearPlataformas();
-            ConfigurarMando();
-            timerPartida.Start();
-            timerEnemigos.Start();
         }
 
         public void SetMenu(MenuPrincipal principal)
@@ -329,11 +345,25 @@ namespace MarioBrosWF
 
         private void CrearEnemigos()
         {
-            //Esto seguramente se cargará de otra parte para que hayan más niveles
-            for (int i = 0; i < 3; i++)
+            //Lee solo la línea correspodiente al nivel actual
+            try
             {
-                enemigos.Add(new Tortuga());
-                enemigos.Add(new Cangrejo());
+                string linea = File.ReadLines("recursos/enemigos.txt").Skip(nivelActual).Take(1).First();
+                string[] lineaSplit = linea.Split(';');
+                foreach (string s in lineaSplit)
+                {
+                    if (s == "T")
+                        enemigos.Add(new Tortuga());
+                    else if (s == "C")
+                        enemigos.Add(new Cangrejo());
+                }
+            }
+            //Si no quedan más líneas es que se han superado todos los niveles
+            catch
+            {
+                MessageBox.Show("Has completado el juego. Para más novedades" +
+                    ", estáte atento al GitHub", "¡Enhorabuena!");
+                GameOver();
             }
         }
 
@@ -352,9 +382,8 @@ namespace MarioBrosWF
                 //Aquí se pasaría al siguiente nivel
                 timerPartida.Stop();
                 timerEnemigos.Stop();
-                MessageBox.Show("Has completado el juego. Para más novedades" +
-                    ", estáte atento al GitHub", "¡Enhorabuena!");
-                GameOver();
+                nivelActual++;
+                IniciarNivel();
             }
             //El personaje se queda sin vidas
             if (jugador.GetVidas() <= 0)
@@ -368,6 +397,8 @@ namespace MarioBrosWF
 
         private void GameOver()
         {
+            timerEnemigos.Stop();
+            timerPartida.Stop();
             gameOver = true;
             MenuGameOver over = new MenuGameOver(jugador.GetPuntos());
             over.SetMenu(this.principal);
