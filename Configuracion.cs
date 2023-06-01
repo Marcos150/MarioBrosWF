@@ -22,7 +22,6 @@ namespace MarioBrosWF
         public static int GRAVEDAD = 1;
         public static int GRAVEDAD_MAXIMA = 14;
         public static int FUERZA_SALTO = -14;
-        public static string CODIGO_SECRETO = "Up, Up, Down, Down, Left, Right, Left, Right, B, A";
 
         public static int[] DIMENSIONES_PERSONAJE = {16, 23};
         public static int[] DIMENSIONES_ENEMIGO = {16, 16};

@@ -78,7 +78,7 @@ namespace MarioBrosWF
                 if (vidas == 1 && this is Cangrejo)
                 {
                     imagen = Image.FromFile(Configuracion.CARPETA + "cangrejoEnfadado.png");
-                    this.velocidadActual *= 2;
+                    velocidadActual *= 2;
                 }
                 if (vidas == 0)
                 {
@@ -93,10 +93,7 @@ namespace MarioBrosWF
             else if (enPantalla)
             {
                 esVulnerable = false;
-                if (derecha)
-                    velocidadActual = Configuracion.VELOCIDAD_INICIAL_ENEMIGOS;
-                else if (izquierda)
-                    velocidadActual = -Configuracion.VELOCIDAD_INICIAL_ENEMIGOS;
+                velocidadActual = Configuracion.VELOCIDAD_INICIAL_ENEMIGOS;
                 imagen = Image.FromFile(FICHERO_SPRITE);
                 if (this is Tortuga) 
                     vidas = 1;

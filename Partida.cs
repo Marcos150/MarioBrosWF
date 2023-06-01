@@ -15,11 +15,12 @@ namespace MarioBrosWF
     {
         private const string SONIDO_FONDO = "recursos/music.wav";
         private const string SONIDO_FONDO_SECRETO = "recursos/musicSecret.wav";
+        private const string SONIDO_GAME_OVER = "recursos/musicGameOver.wav";
+        private const string SONIDO_SUPERADO = "recursos/musicSuperado.wav";
         private const string EFECTO_SALTO = "recursos/sonidoSalto.wav";
         private MenuPrincipal principal;
         private Personaje jugador;
         private List<Enemigo> enemigos;
-        private bool secreto;
         private Plataforma[] plataformas;
         private BloquePOW pow;
         private Controller mando;
@@ -36,14 +37,14 @@ namespace MarioBrosWF
             DoubleBuffered = true;
             this.ClientSize = new Size(Configuracion.ANCHO_PANTALLA,
                 Configuracion.ALTO_PANTALLA);
-            AjustarTamanyo();
-            Configuracion.COORDENADAS_INICIALES_ENEMIGO[0] = tuberiaIzquierda.Size.Width;
+            AjustarTamanyoTuberias();
+            Configuracion.COORDENADAS_INICIALES_ENEMIGO[0] = 
+                tuberiaIzquierda.Size.Width;
             nivelActual = 0;
             jugador = new Personaje();
             IniciarNivel();
             streamFondo = new WaveFileReader(SONIDO_FONDO);
             playerFondo = new WaveOut(); 
-            playerFondo.Init(streamFondo);
             streamFondo.Position = streamFondo.Length;
             ComprobarMusica();
             streamEfecto = new WaveFileReader(EFECTO_SALTO);
@@ -51,20 +52,24 @@ namespace MarioBrosWF
             playerEfecto.Init(streamEfecto);
         }
 
-        private void AjustarTamanyo()
+        private void AjustarTamanyoTuberias()
         {
-            tuberiaIzquierda.Image = Image.FromFile(Configuracion.CARPETA + "tuberiaIzquierda.png");
-            tuberiaDerecha.Image = Image.FromFile(Configuracion.CARPETA + "tuberiaDerecha.png");
+            tuberiaIzquierda.Image = Image.FromFile(Configuracion.CARPETA + 
+                "tuberiaIzquierda.png");
+            tuberiaDerecha.Image = Image.FromFile(Configuracion.CARPETA + 
+                "tuberiaDerecha.png");
             if (Configuracion.ALTO_PANTALLA == 375)
             {
-                tuberiaDerecha.Location = new Point(Configuracion.ANCHO_PANTALLA - 32, 23);
+                tuberiaDerecha.Location = new Point(Configuracion.ANCHO_PANTALLA
+                    - 32, 23);
                 tuberiaIzquierda.Location = new Point(0, 23);
                 tuberiaDerecha.Size = new Size(32, 46);
                 tuberiaIzquierda.Size = new Size(32, 46);
             }
             else 
             {
-                tuberiaDerecha.Location = new Point(Configuracion.ANCHO_PANTALLA - 64, 46);
+                tuberiaDerecha.Location = new Point(Configuracion.ANCHO_PANTALLA 
+                    - 64, 46);
                 tuberiaIzquierda.Location = new Point(0, 46);
                 tuberiaDerecha.Size = new Size(64, 92);
                 tuberiaIzquierda.Size = new Size(64, 92);
@@ -171,7 +176,8 @@ namespace MarioBrosWF
                     e.Generar();
                     generado = true;
                     //Lado izquierdo
-                    if (Configuracion.COORDENADAS_INICIALES_ENEMIGO[0] == tuberiaIzquierda.Size.Width)
+                    if (Configuracion.COORDENADAS_INICIALES_ENEMIGO[0] == 
+                        tuberiaIzquierda.Size.Width)
                     {
                         Configuracion.COORDENADAS_INICIALES_ENEMIGO[0] = 
                             Configuracion.ANCHO_PANTALLA - 
@@ -182,7 +188,8 @@ namespace MarioBrosWF
                     //Lado derecho
                     else
                     {
-                        Configuracion.COORDENADAS_INICIALES_ENEMIGO[0] = tuberiaIzquierda.Size.Width;
+                        Configuracion.COORDENADAS_INICIALES_ENEMIGO[0] = 
+                            tuberiaIzquierda.Size.Width;
                         e.SetIzquierda(true);
                         e.SetDerecha(false);
                     }
@@ -192,7 +199,8 @@ namespace MarioBrosWF
 
         private void GolpearPOW()
         {
-            enemigos.Where(e => e.EnPantalla()).ToList().ForEach(e => e.CambiarVulnerabilidad());
+            enemigos.Where(e => e.EnPantalla()).ToList().ForEach(e => 
+            e.CambiarVulnerabilidad());
             pow.SetUsosRestantes(pow.GetUsosRestantes() - 1);
             pow.CambiarSprite();
             jugador.SetHaGolpeado(true);
@@ -263,7 +271,7 @@ namespace MarioBrosWF
                 {
                     if (!(p is BloquePOW) && jugador.ColisionaCon(p))
                     {
-                        if (jugador.ComprobarTipoColision(p, enemigos) == 1)
+                        if (jugador.ComprobarTipoColision(p) == 1)
                             ComprobarEnemigosGolpeados(p);
                         else
                             jugador.SetHaGolpeado(false);
@@ -280,19 +288,22 @@ namespace MarioBrosWF
             //Enemigos
             foreach (Enemigo e in enemigos)
             {
-                if (jugador.ColisionaCon(e) && !e.EsVulnerable() && e.EnPantalla())
+                if (jugador.ColisionaCon(e) && !e.EsVulnerable() && 
+                    e.EnPantalla())
                     jugador.Reaparecer();
-                else if (jugador.ColisionaCon(e) && e.EsVulnerable() && e.EnPantalla())
+                else if (jugador.ColisionaCon(e) && e.EsVulnerable() && 
+                    e.EnPantalla())
                 {
                     e.Exterminado();
-                    jugador.SetPuntos(jugador.GetPuntos() + Configuracion.PUNTOS_ENEMIGO);
+                    jugador.SetPuntos(jugador.GetPuntos() + 
+                        Configuracion.PUNTOS_ENEMIGO);
                 }
             }
 
             //Bloque POW
             if (jugador.ColisionaCon(pow) && pow.GetUsosRestantes() > 0)
             {
-                if (jugador.ComprobarTipoColision(pow, enemigos) == 1 && 
+                if (jugador.ComprobarTipoColision(pow) == 1 && 
                     !jugador.HaGolpeado())
                     GolpearPOW();
             }
@@ -302,7 +313,8 @@ namespace MarioBrosWF
         {
             foreach (Enemigo e in enemigos)
             {
-                if (jugador.X > e.X - 5 && jugador.X < e.X + 5 && e.GetPlataforma() == p)
+                if (jugador.X > e.X - 5 && jugador.X < e.X + 5 && 
+                    e.GetPlataforma() == p)
                 {
                     if (!jugador.HaGolpeado())
                         e.CambiarVulnerabilidad();
@@ -377,7 +389,9 @@ namespace MarioBrosWF
                             }
                             x += Configuracion.DIMENSIONES_PLATAFORMA[0];
                         }
-                        y += Configuracion.ALTO_PANTALLA / Configuracion.FILAS_MAPA - 2; //-1 so that the last line is barely visible
+                        //-2 para que se vea un poquito la última línea
+                        y += Configuracion.ALTO_PANTALLA /
+                            Configuracion.FILAS_MAPA - 2;
                     }
                 } while(linea != null);
             }
@@ -388,7 +402,8 @@ namespace MarioBrosWF
             //Lee solo la línea correspodiente al nivel actual
             try
             {
-                string linea = File.ReadLines("recursos/enemigos.txt").Skip(nivelActual).Take(1).First();
+                string linea = File.ReadLines("recursos/enemigos.txt").Skip(
+                    nivelActual).Take(1).First();
                 string[] lineaSplit = linea.Split(';');
                 foreach (string s in lineaSplit)
                 {
@@ -401,6 +416,11 @@ namespace MarioBrosWF
             //Si no quedan más líneas es que se han superado todos los niveles
             catch
             {
+                streamFondo = new WaveFileReader(SONIDO_SUPERADO);
+                playerFondo.Stop();
+                playerFondo = new WaveOut();
+                playerFondo.Init(streamFondo);
+                playerFondo.Play();
                 MessageBox.Show("Has completado el juego. Para más novedades" +
                     ", estáte atento al GitHub", "¡Enhorabuena!");
                 GameOver();
@@ -416,7 +436,7 @@ namespace MarioBrosWF
                 if (e.EnPantalla() || e.GetVidas() > 0)
                     quedanEnemigos = true;
             }
-            //Se derrotan todos los enemigos
+            //Se derrotan todos los enemigos del nivel
             if (!quedanEnemigos)
             {
                 //Aquí se pasaría al siguiente nivel
@@ -430,6 +450,11 @@ namespace MarioBrosWF
             {
                 timerPartida.Stop();
                 timerEnemigos.Stop();
+                streamFondo = new WaveFileReader(SONIDO_GAME_OVER);
+                playerFondo.Stop();
+                playerFondo = new WaveOut();
+                playerFondo.Init(streamFondo);
+                playerFondo.Play();
                 MessageBox.Show("Has perdido", "Vaya...");
                 GameOver();
             }
@@ -449,6 +474,7 @@ namespace MarioBrosWF
                 else
                     streamFondo = new WaveFileReader(SONIDO_FONDO);
 
+                playerFondo = new WaveOut();
                 playerFondo.Init(streamFondo);
                 playerFondo.Play();
             }

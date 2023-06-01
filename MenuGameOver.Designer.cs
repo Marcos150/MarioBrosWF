@@ -99,6 +99,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "MenuGameOver";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Game Over";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MenuGameOver_FormClosed);
             this.ResumeLayout(false);

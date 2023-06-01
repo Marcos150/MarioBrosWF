@@ -31,11 +31,6 @@ namespace MarioBrosWF
             return this.principal;
         }
 
-        private RegistroRanking NuevoRegistro()
-        {
-            return new RegistroRanking();
-        }
-
         private void MenuGameOver_FormClosed(object sender, FormClosedEventArgs e)
         {
             principal.Show();
@@ -45,9 +40,9 @@ namespace MarioBrosWF
         {
             //Lectura
             string jsonString2 = File.ReadAllText(Configuracion.RANKING);
-            List<RegistroRanking> lista = JsonSerializer.Deserialize<List<RegistroRanking>>(jsonString2);
+            List<RegistroRanking> lista = JsonSerializer.Deserialize<
+                List<RegistroRanking>>(jsonString2);
 
-            //CAMBIAR PARA QUE COMPRUEBE QUE HAY ALGUNA LETRA
             if (textBoxNombre.Text != "")
             {
                 lista.Add(new RegistroRanking(puntos, textBoxNombre.Text));
@@ -55,7 +50,8 @@ namespace MarioBrosWF
                 buttonRegistrar.Hide();
             }
             else
-                MessageBox.Show("Tienes que escribir un nombre", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Tienes que escribir un nombre", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             //Escritura
             var opciones = new JsonSerializerOptions { WriteIndented = true };

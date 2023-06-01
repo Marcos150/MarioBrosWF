@@ -1,8 +1,6 @@
 ﻿//Clase que define al personaje controlado por el jugador
 
 using NAudio.Wave;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
 
 namespace MarioBrosWF
@@ -12,7 +10,6 @@ namespace MarioBrosWF
         private int vidas;
         private int puntos;
         private int gravedadActual;
-        private bool izquierda, derecha;
         private int ultimaDireccion;
         private bool puedeSaltar;
         private bool puedeCaerse;
@@ -41,10 +38,14 @@ namespace MarioBrosWF
             Configuracion.DIMENSIONES_PERSONAJE[1])
         {
             FICHERO_SPRITE = Configuracion.CARPETA + "spritesAndar.png";
-            spriteSaltoIzquierda = Configuracion.CARPETA + "spriteSaltoIzquierda.png";
-            spriteQuietoIzquierda = Configuracion.CARPETA + "spriteQuietoIzquierda.png";
-            spriteSaltoDerecha = Configuracion.CARPETA + "spriteSaltoDerecha.png";
-            spriteQuietoDerecha = Configuracion.CARPETA + "spriteQuietoDerecha.png";
+            spriteSaltoIzquierda = Configuracion.CARPETA + 
+                "spriteSaltoIzquierda.png";
+            spriteQuietoIzquierda = Configuracion.CARPETA + 
+                "spriteQuietoIzquierda.png";
+            spriteSaltoDerecha = Configuracion.CARPETA + 
+                "spriteSaltoDerecha.png";
+            spriteQuietoDerecha = Configuracion.CARPETA + 
+                "spriteQuietoDerecha.png";
             coordenadasX[DERECHA] = Configuracion.ANIMACION_PERSONAJE_DERECHA;
             coordenadasY[DERECHA] = new int[] { 0, 0, 0, 0, 0 };
             coordenadasX[IZQUIERDA] = Configuracion.ANIMACION_PERSONAJE_IZQUIERDA;
@@ -128,11 +129,12 @@ namespace MarioBrosWF
                 this.MoverA(this.X, this.Y + this.GetGravedad());
             //Aumenta gravedad si no se ha alcanzado la gravedad máxima
             //y no se esta en una plataforma
-            if (this.GetGravedad() < Configuracion.GRAVEDAD_MAXIMA && plataformaActual == null)
+            if (this.GetGravedad() < Configuracion.GRAVEDAD_MAXIMA && 
+                plataformaActual == null)
                 gravedadActual += Configuracion.GRAVEDAD;
         }
 
-        public int ComprobarTipoColision(Plataforma p, List<Enemigo> enemigos)
+        public int ComprobarTipoColision(Plataforma p)
         {
             //Si choca por encima
             if (this.Y <= p.Y)

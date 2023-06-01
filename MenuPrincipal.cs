@@ -11,28 +11,11 @@ namespace MarioBrosWF
 {
     public partial class MenuPrincipal : Form
     {
-        private bool secreto;
-
         public MenuPrincipal()
         {
             InitializeComponent();
             this.ClientSize = new Size(Configuracion.ANCHO_PANTALLA,
                 Configuracion.ALTO_PANTALLA);
-        }
-
-        private void Iniciar()
-        {
-
-        }
-
-        private void VerRanking()
-        {
-
-        }
-
-        private void Salir()
-        {
-
         }
 
         private void buttonInicio_Click(object sender, EventArgs e)
@@ -48,7 +31,8 @@ namespace MarioBrosWF
             listRanking.Items.Clear();
             //Lectura
             string jsonString2 = File.ReadAllText(Configuracion.RANKING);
-            List<RegistroRanking> lista = JsonSerializer.Deserialize<List<RegistroRanking>>(jsonString2);
+            List<RegistroRanking> lista = JsonSerializer.Deserialize<List<
+                RegistroRanking>>(jsonString2);
             lista.Sort((s1, s2) => s2.Puntuacion.CompareTo(s1.Puntuacion));
 
             foreach (RegistroRanking r in lista)
@@ -91,7 +75,8 @@ namespace MarioBrosWF
                 Configuracion.FUERZA_SALTO = -28;
                 Configuracion.GRAVEDAD = 2;
 
-                for (int i = 0; i < Configuracion.ANIMACION_PERSONAJE_DERECHA.Length; i++)
+                for (int i = 0; i < 
+                    Configuracion.ANIMACION_PERSONAJE_DERECHA.Length; i++)
                 {
                     Configuracion.ANIMACION_PERSONAJE_DERECHA[i] *= 2;
                     Configuracion.ANIMACION_PERSONAJE_IZQUIERDA[i] *= 2;
@@ -129,7 +114,8 @@ namespace MarioBrosWF
                 Configuracion.FUERZA_SALTO = -14;
                 Configuracion.GRAVEDAD = 1;
 
-                for (int i = 0; i < Configuracion.ANIMACION_PERSONAJE_DERECHA.Length; i++)
+                for (int i = 0; i < 
+                    Configuracion.ANIMACION_PERSONAJE_DERECHA.Length; i++)
                 {
                     Configuracion.ANIMACION_PERSONAJE_DERECHA[i] /= 2;
                     Configuracion.ANIMACION_PERSONAJE_IZQUIERDA[i] /= 2;
