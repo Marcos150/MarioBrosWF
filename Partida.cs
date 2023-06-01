@@ -19,6 +19,9 @@ namespace MarioBrosWF
         private const string SONIDO_SUPERADO = "recursos/musicSuperado.wav";
         private const string EFECTO_SALTO = "recursos/sonidoSalto.wav";
         private const string EFECTO_NIVEL = "recursos/sonidoNivel.wav";
+        private const string EFECTO_ELIMINADO = "recursos/sonidoEliminado.wav";
+        private const string EFECTO_EXTERMINADO = "recursos/sonidoExterminado.wav";
+
         private MenuPrincipal principal;
         private Personaje jugador;
         private List<Enemigo> enemigos;
@@ -30,8 +33,20 @@ namespace MarioBrosWF
         private WaveStream streamFondo;
         private WaveStream streamEfectoSalto;
         private WaveStream streamEfectoNivel;
+        private WaveStream streamEfectoEliminado;
+        private WaveStream streamEfectoExterminado;
         private WaveOut playerFondo;
         private WaveOut playerEfecto;
+
+        public void SetMenu(MenuPrincipal principal)
+        {
+            this.principal = principal;
+        }
+
+        public MenuPrincipal GetMenu()
+        {
+            return this.principal;
+        }
 
         public Partida()
         {
@@ -46,13 +61,17 @@ namespace MarioBrosWF
             jugador = new Personaje();
             ConfigurarMando();
             IniciarNivel();
+
             streamFondo = new WaveFileReader(SONIDO_FONDO);
             playerFondo = new WaveOut(); 
             streamFondo.Position = streamFondo.Length;
             ComprobarMusica();
             streamEfectoSalto = new WaveFileReader(EFECTO_SALTO);
             streamEfectoNivel = new WaveFileReader(EFECTO_NIVEL);
+            streamEfectoEliminado = new WaveFileReader(EFECTO_ELIMINADO);
+            streamEfectoExterminado = new WaveFileReader(EFECTO_EXTERMINADO);
             playerEfecto = new WaveOut();
+            playerEfecto.Volume = 0.5f;
             playerEfecto.Init(streamEfectoSalto);
         }
 
@@ -86,7 +105,6 @@ namespace MarioBrosWF
             jugador.MoverA(Configuracion.COORDENADAS_INICIALES_PERSONAJE[0], 
                 Configuracion.COORDENADAS_INICIALES_PERSONAJE[1]);
             jugador.SetGravedad(0);
-            jugador.SetGravedad(0);
             enemigos = new List<Enemigo>();
             CrearEnemigos();
             //Si aún quedan niveles, se sigue con el proceso
@@ -107,16 +125,6 @@ namespace MarioBrosWF
             }
         }
 
-        public void SetMenu(MenuPrincipal principal)
-        {
-            this.principal = principal;
-        }
-
-        public MenuPrincipal GetMenu()
-        { 
-            return this.principal; 
-        }
-
         private void ConfigurarMando()
         {
             mando = new Controller(UserIndex.One);
@@ -133,7 +141,7 @@ namespace MarioBrosWF
                     jugador.PuedeSaltar())
                 {
                     jugador.Salta();
-                    CambiarEfecto(streamEfectoSalto);
+                    ReproducirEfecto(streamEfectoSalto);
                 }
 
                 if (estado.Gamepad.LeftThumbX < 0)
@@ -207,7 +215,7 @@ namespace MarioBrosWF
         private void GolpearPOW()
         {
             enemigos.Where(e => e.EnPantalla()).ToList().ForEach(e => 
-            e.CambiarVulnerabilidad());
+                e.CambiarVulnerabilidad());
             pow.SetUsosRestantes(pow.GetUsosRestantes() - 1);
             pow.CambiarSprite();
             jugador.SetHaGolpeado(true);
@@ -223,26 +231,16 @@ namespace MarioBrosWF
             if (e.KeyCode == Keys.Up && jugador.PuedeSaltar())
             {
                 jugador.Salta();
-                CambiarEfecto(streamEfectoSalto);
+                ReproducirEfecto(streamEfectoSalto);
             }
         }
 
         private void Partida_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Left)
-            {
                 jugador.Izquierda = false;
-            }
             else if (e.KeyCode == Keys.Right)
-            {
                 jugador.Derecha = false;
-            }
-        }
-
-        private void ActualizarHUD()
-        {
-            lblPuntos.Text = "Puntos: " + jugador.GetPuntos();
-            lblVidas.Text = "Vidas: " + jugador.GetVidas();
         }
 
         private void Partida_FormClosed(object sender, FormClosedEventArgs e)
@@ -269,6 +267,12 @@ namespace MarioBrosWF
         private void timerEnemigos_Tick(object sender, EventArgs e)
         {
             GenerarEnemigo();
+        }
+
+        private void ActualizarHUD()
+        {
+            lblPuntos.Text = "Puntos: " + jugador.GetPuntos();
+            lblVidas.Text = "Vidas: " + jugador.GetVidas();
         }
 
         private void ComprobarColisionJugador()
@@ -298,15 +302,19 @@ namespace MarioBrosWF
             //Enemigos
             foreach (Enemigo e in enemigos)
             {
-                if (jugador.ColisionaCon(e) && !e.EsVulnerable() && 
-                    e.EnPantalla())
-                    jugador.Reaparecer();
-                else if (jugador.ColisionaCon(e) && e.EsVulnerable() && 
+                if (jugador.ColisionaCon(e) && !e.EsVulnerable() &&
                     e.EnPantalla())
                 {
-                    e.Exterminado();
-                    jugador.SetPuntos(jugador.GetPuntos() + 
+                    jugador.Reaparecer();
+                    ReproducirEfecto(streamEfectoEliminado);
+                }
+                else if (jugador.ColisionaCon(e) && e.EsVulnerable() &&
+                    e.EnPantalla())
+                {
+                    e.Exterminar();
+                    jugador.SetPuntos(jugador.GetPuntos() +
                         Configuracion.PUNTOS_ENEMIGO);
+                    ReproducirEfecto(streamEfectoExterminado);
                 }
             }
 
@@ -333,19 +341,6 @@ namespace MarioBrosWF
             }
         }
 
-        private void ComprobarTiempoEnemigos()
-        {
-            foreach (Enemigo e in enemigos)
-            {
-                if (e.EsVulnerable())
-                {
-                    e.RestarTiempo();
-                    if (e.GetTiempo() <= 0)
-                        e.CambiarVulnerabilidad();
-                }
-            }
-        }
-
         private void ComprobarColisionEnemigos()
         {
             foreach (Enemigo e in enemigos)
@@ -357,7 +352,7 @@ namespace MarioBrosWF
                         if (e.ColisionaCon(p))
                         {
                             e.SetPlataforma(p);
-                            e.Y = p.Y - Configuracion.DIMENSIONES_ENEMIGO[1] +1;
+                            e.Y = p.Y - Configuracion.DIMENSIONES_ENEMIGO[1] + 1;
                         }
                     }
                 }
@@ -365,6 +360,19 @@ namespace MarioBrosWF
                 {
                     if (!e.ColisionaCon(e.GetPlataforma()))
                         e.SetPlataforma(null);
+                }
+            }
+        }
+
+        private void ComprobarTiempoEnemigos()
+        {
+            foreach (Enemigo e in enemigos)
+            {
+                if (e.EsVulnerable())
+                {
+                    e.RestarTiempo();
+                    if (e.GetTiempo() <= 0)
+                        e.CambiarVulnerabilidad();
                 }
             }
         }
@@ -447,7 +455,7 @@ namespace MarioBrosWF
             {
                 timerPartida.Stop();
                 timerEnemigos.Stop();
-                CambiarEfecto(streamEfectoNivel);
+                ReproducirEfecto(streamEfectoNivel);
                 nivelActual++;
                 IniciarNivel();
             }
@@ -471,7 +479,7 @@ namespace MarioBrosWF
             playerFondo.Play();
         }
 
-        private void CambiarEfecto(WaveStream nuevoEfecto)
+        private void ReproducirEfecto(WaveStream nuevoEfecto)
         {
             playerEfecto.Stop();
             playerEfecto.Init(nuevoEfecto);
@@ -483,14 +491,14 @@ namespace MarioBrosWF
         {
             if (streamFondo.Position == streamFondo.Length)
             {
-                //10% de probabilidades de que al iniciar o loopear la canción
+                //1% de probabilidades de que al iniciar o loopear la canción
                 //Se reproduzca una secreta
                 Random r = new Random();
                 int x = r.Next(99);
 
                 playerFondo.Stop();
                 streamFondo.Position = 0; 
-                if (x < 10)
+                if (x == 17)
                     streamFondo = new WaveFileReader(SONIDO_FONDO_SECRETO);
                 else
                     streamFondo = new WaveFileReader(SONIDO_FONDO);

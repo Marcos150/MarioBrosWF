@@ -119,7 +119,7 @@ namespace MarioBrosWF
             return enPantalla;
         }
 
-        public void Exterminado()
+        public void Exterminar()
         {
             enPantalla = false;
             vidas = 0;
