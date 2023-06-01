@@ -18,6 +18,7 @@ namespace MarioBrosWF
         private const string SONIDO_GAME_OVER = "recursos/musicGameOver.wav";
         private const string SONIDO_SUPERADO = "recursos/musicSuperado.wav";
         private const string EFECTO_SALTO = "recursos/sonidoSalto.wav";
+        private const string EFECTO_NIVEL = "recursos/sonidoNivel.wav";
         private MenuPrincipal principal;
         private Personaje jugador;
         private List<Enemigo> enemigos;
@@ -27,7 +28,8 @@ namespace MarioBrosWF
         private int nivelActual;
         private bool gameOver;
         private WaveStream streamFondo;
-        private WaveStream streamEfecto;
+        private WaveStream streamEfectoSalto;
+        private WaveStream streamEfectoNivel;
         private WaveOut playerFondo;
         private WaveOut playerEfecto;
 
@@ -48,9 +50,10 @@ namespace MarioBrosWF
             playerFondo = new WaveOut(); 
             streamFondo.Position = streamFondo.Length;
             ComprobarMusica();
-            streamEfecto = new WaveFileReader(EFECTO_SALTO);
+            streamEfectoSalto = new WaveFileReader(EFECTO_SALTO);
+            streamEfectoNivel = new WaveFileReader(EFECTO_NIVEL);
             playerEfecto = new WaveOut();
-            playerEfecto.Init(streamEfecto);
+            playerEfecto.Init(streamEfectoSalto);
         }
 
         private void AjustarTamanyoTuberias()
@@ -126,8 +129,12 @@ namespace MarioBrosWF
             if (mando.IsConnected)
             {
                 State estado = mando.GetState();
-                if (estado.Gamepad.Buttons == Configuracion.BOTON_SALTO)
-                    jugador.Salta(playerEfecto, streamEfecto);
+                if (estado.Gamepad.Buttons == Configuracion.BOTON_SALTO && 
+                    jugador.PuedeSaltar())
+                {
+                    jugador.Salta();
+                    CambiarEfecto(streamEfectoSalto);
+                }
 
                 if (estado.Gamepad.LeftThumbX < 0)
                 {
@@ -213,8 +220,11 @@ namespace MarioBrosWF
             else if (e.KeyCode == Keys.Right)
                 jugador.Derecha = true;
 
-            if (e.KeyCode == Keys.Up)
-                jugador.Salta(playerEfecto, streamEfecto);
+            if (e.KeyCode == Keys.Up && jugador.PuedeSaltar())
+            {
+                jugador.Salta();
+                CambiarEfecto(streamEfectoSalto);
+            }
         }
 
         private void Partida_KeyUp(object sender, KeyEventArgs e)
@@ -416,11 +426,7 @@ namespace MarioBrosWF
             //Si no quedan más líneas es que se han superado todos los niveles
             catch
             {
-                streamFondo = new WaveFileReader(SONIDO_SUPERADO);
-                playerFondo.Stop();
-                playerFondo = new WaveOut();
-                playerFondo.Init(streamFondo);
-                playerFondo.Play();
+                CambiarMusica(SONIDO_SUPERADO);
                 MessageBox.Show("Has completado el juego. Para más novedades" +
                     ", estáte atento al GitHub", "¡Enhorabuena!");
                 GameOver();
@@ -436,12 +442,12 @@ namespace MarioBrosWF
                 if (e.EnPantalla() || e.GetVidas() > 0)
                     quedanEnemigos = true;
             }
-            //Se derrotan todos los enemigos del nivel
+            //Si se derrotan todos los enemigos del nivel se pasa al siguiente
             if (!quedanEnemigos)
             {
-                //Aquí se pasaría al siguiente nivel
                 timerPartida.Stop();
                 timerEnemigos.Stop();
+                CambiarEfecto(streamEfectoNivel);
                 nivelActual++;
                 IniciarNivel();
             }
@@ -450,14 +456,27 @@ namespace MarioBrosWF
             {
                 timerPartida.Stop();
                 timerEnemigos.Stop();
-                streamFondo = new WaveFileReader(SONIDO_GAME_OVER);
-                playerFondo.Stop();
-                playerFondo = new WaveOut();
-                playerFondo.Init(streamFondo);
-                playerFondo.Play();
+                CambiarMusica(SONIDO_GAME_OVER);
                 MessageBox.Show("Has perdido", "Vaya...");
                 GameOver();
             }
+        }
+
+        private void CambiarMusica(string nuevaMusica)
+        {
+            streamFondo = new WaveFileReader(nuevaMusica);
+            playerFondo.Stop();
+            playerFondo = new WaveOut();
+            playerFondo.Init(streamFondo);
+            playerFondo.Play();
+        }
+
+        private void CambiarEfecto(WaveStream nuevoEfecto)
+        {
+            playerEfecto.Stop();
+            playerEfecto.Init(nuevoEfecto);
+            nuevoEfecto.Position = 0;
+            playerEfecto.Play();
         }
 
         private void ComprobarMusica()

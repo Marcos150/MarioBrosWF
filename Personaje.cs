@@ -155,17 +155,12 @@ namespace MarioBrosWF
             }
         }
 
-        public void Salta(WaveOut playerEfecto, WaveStream streamEfecto)
+        public void Salta()
         {
-            if (puedeSaltar)
-            {
-                streamEfecto.Position = 0;
-                playerEfecto.Play();
-                y--; //Evita que que se pueda saltar 2 veces
-                plataformaActual = null;
-                this.gravedadActual = Configuracion.FUERZA_SALTO;
-                this.puedeSaltar = false;
-            }
+            y--; //Evita que que se pueda saltar 2 veces
+            plataformaActual = null;
+            this.gravedadActual = Configuracion.FUERZA_SALTO;
+            this.puedeSaltar = false;
         }
 
         public void Reaparecer()
