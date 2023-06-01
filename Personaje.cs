@@ -62,16 +62,6 @@ namespace MarioBrosWF
             imagen = Image.FromFile(FICHERO_SPRITE);
         }
 
-        public void Mover(int movimiento)
-        {
-            int nuevaX = x;
-            if (movimiento == IZQUIERDA)
-                nuevaX -= 2;
-            if (movimiento == DERECHA)
-                nuevaX += 2;
-            MoverA(nuevaX, y);
-        }
-
         public void Mover()
         {
             // Comparador XOR
@@ -81,7 +71,7 @@ namespace MarioBrosWF
                 if (izquierda)
                 {
                     ultimaDireccion = IZQUIERDA;
-                    nuevaX -= Math.Min(Configuracion.PASO, x);
+                    nuevaX -= Configuracion.PASO;
                     //Si esta en una plataforma
                     if (plataformaActual != null)
                     {
@@ -99,8 +89,7 @@ namespace MarioBrosWF
                 else if (derecha)
                 {
                     ultimaDireccion = DERECHA;
-                    nuevaX += Math.Min(Configuracion.PASO,
-                        Configuracion.ANCHO_PANTALLA - this.ancho - x);
+                    nuevaX += Configuracion.PASO;
                     //Si esta en una plataforma
                     if (plataformaActual != null)
                     {
@@ -126,6 +115,11 @@ namespace MarioBrosWF
                 else
                     imagen = Image.FromFile(spriteQuietoDerecha);
             }
+            //Si sale de un lado de la pantalla, entra por el otro
+            if (x <= - ancho)
+                x = Configuracion.ANCHO_PANTALLA - ancho;
+            if (x >= Configuracion.ANCHO_PANTALLA)
+                x = 0;
 
             //Se mueve verticalmente si no esta en una plataforma
             //y no golpea a nada por arriba
