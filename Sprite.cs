@@ -25,6 +25,18 @@ namespace MarioBrosWF
             set { y = value; }
         }
 
+        public int Ancho
+        {
+            get { return ancho; }
+            set { ancho = value; }
+        }
+
+        public int Alto
+        {
+            get { return alto; }
+            set { alto = value; }
+        }
+
         public Sprite(int ancho, int alto)
         {
             this.ancho = ancho;

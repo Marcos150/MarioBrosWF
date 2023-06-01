@@ -83,6 +83,8 @@ namespace MarioBrosWF
                 Configuracion.DIMENSIONES_PLATAFORMA[1] *= 2;
                 Configuracion.COORDENADAS_INICIALES_PERSONAJE[0] *=2;
                 Configuracion.COORDENADAS_INICIALES_PERSONAJE[1] *=2;
+                Configuracion.COORDENADAS_INICIALES_ENEMIGO[0] *= 2;
+                Configuracion.COORDENADAS_INICIALES_ENEMIGO[1] *= 2;
                 Configuracion.COORDENADAS_INICIALES_POW[0] *= 2;
                 Configuracion.COORDENADAS_INICIALES_POW[1] *= 2;
                 Configuracion.GRAVEDAD_MAXIMA = 28;
@@ -117,6 +119,8 @@ namespace MarioBrosWF
                 Configuracion.DIMENSIONES_ENEMIGO[1] /= 2;
                 Configuracion.DIMENSIONES_PLATAFORMA[0] /= 2;
                 Configuracion.DIMENSIONES_PLATAFORMA[1] /= 2;
+                Configuracion.COORDENADAS_INICIALES_PERSONAJE[0] /= 2;
+                Configuracion.COORDENADAS_INICIALES_PERSONAJE[1] /= 2;
                 Configuracion.COORDENADAS_INICIALES_PERSONAJE[0] /= 2;
                 Configuracion.COORDENADAS_INICIALES_PERSONAJE[1] /= 2;
                 Configuracion.COORDENADAS_INICIALES_POW[0] /= 2;

@@ -28,10 +28,31 @@ namespace MarioBrosWF
             DoubleBuffered = true;
             this.ClientSize = new Size(Configuracion.ANCHO_PANTALLA,
                 Configuracion.ALTO_PANTALLA);
-            Configuracion.COORDENADAS_INICIALES_ENEMIGO[0] = Configuracion.ANCHO_PANTALLA / 10;
+            AjustarTamanyo();
+            Configuracion.COORDENADAS_INICIALES_ENEMIGO[0] = tuberiaIzquierda.Size.Width;
             nivelActual = 0;
             jugador = new Personaje();
             IniciarNivel();
+        }
+
+        private void AjustarTamanyo()
+        {
+            tuberiaIzquierda.Image = Image.FromFile(Configuracion.CARPETA + "tuberiaIzquierda.png");
+            tuberiaDerecha.Image = Image.FromFile(Configuracion.CARPETA + "tuberiaDerecha.png");
+            if (Configuracion.ALTO_PANTALLA == 375)
+            {
+                tuberiaDerecha.Location = new Point(Configuracion.ANCHO_PANTALLA - 32, 23);
+                tuberiaIzquierda.Location = new Point(0, 23);
+                tuberiaDerecha.Size = new Size(32, 46);
+                tuberiaIzquierda.Size = new Size(32, 46);
+            }
+            else 
+            {
+                tuberiaDerecha.Location = new Point(Configuracion.ANCHO_PANTALLA - 64, 46);
+                tuberiaIzquierda.Location = new Point(0, 46);
+                tuberiaDerecha.Size = new Size(64, 92);
+                tuberiaIzquierda.Size = new Size(64, 92);
+            }
         }
 
         private void IniciarNivel()
@@ -132,16 +153,18 @@ namespace MarioBrosWF
                     e.Generar();
                     generado = true;
                     //Lado izquierdo
-                    if (Configuracion.COORDENADAS_INICIALES_ENEMIGO[0] == Configuracion.ANCHO_PANTALLA / 10)
+                    if (Configuracion.COORDENADAS_INICIALES_ENEMIGO[0] == tuberiaIzquierda.Size.Width)
                     {
-                        Configuracion.COORDENADAS_INICIALES_ENEMIGO[0] += (Configuracion.ANCHO_PANTALLA / 5) * 4;
+                        Configuracion.COORDENADAS_INICIALES_ENEMIGO[0] = 
+                            Configuracion.ANCHO_PANTALLA - 
+                            (tuberiaDerecha.Width + e.Ancho);
                         e.SetDerecha(true);
                         e.SetVelocidad(Configuracion.VELOCIDAD_INICIAL_ENEMIGOS);
                     }
                     //Lado derecho
                     else
                     {
-                        Configuracion.COORDENADAS_INICIALES_ENEMIGO[0] = Configuracion.ANCHO_PANTALLA / 10;
+                        Configuracion.COORDENADAS_INICIALES_ENEMIGO[0] = tuberiaIzquierda.Size.Width;
                         e.SetIzquierda(true);
                         e.SetVelocidad(-Configuracion.VELOCIDAD_INICIAL_ENEMIGOS);
                     }

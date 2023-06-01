@@ -29,11 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Partida));
             this.timerPartida = new System.Windows.Forms.Timer(this.components);
             this.timerEnemigos = new System.Windows.Forms.Timer(this.components);
             this.lblPuntos = new System.Windows.Forms.Label();
             this.lblVidas = new System.Windows.Forms.Label();
             this.lblLevel = new System.Windows.Forms.Label();
+            this.tuberiaIzquierda = new System.Windows.Forms.PictureBox();
+            this.tuberiaDerecha = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.tuberiaIzquierda)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tuberiaDerecha)).BeginInit();
             this.SuspendLayout();
             // 
             // timerPartida
@@ -75,11 +80,33 @@
             this.lblLevel.TabIndex = 2;
             this.lblLevel.Text = "label1";
             // 
+            // tuberiaIzquierda
+            // 
+            this.tuberiaIzquierda.BackColor = System.Drawing.Color.Transparent;
+            this.tuberiaIzquierda.Image = ((System.Drawing.Image)(resources.GetObject("tuberiaIzquierda.Image")));
+            this.tuberiaIzquierda.Location = new System.Drawing.Point(0, 48);
+            this.tuberiaIzquierda.Name = "tuberiaIzquierda";
+            this.tuberiaIzquierda.Size = new System.Drawing.Size(64, 92);
+            this.tuberiaIzquierda.TabIndex = 3;
+            this.tuberiaIzquierda.TabStop = false;
+            // 
+            // tuberiaDerecha
+            // 
+            this.tuberiaDerecha.BackColor = System.Drawing.Color.Transparent;
+            this.tuberiaDerecha.Image = ((System.Drawing.Image)(resources.GetObject("tuberiaDerecha.Image")));
+            this.tuberiaDerecha.Location = new System.Drawing.Point(1215, 48);
+            this.tuberiaDerecha.Name = "tuberiaDerecha";
+            this.tuberiaDerecha.Size = new System.Drawing.Size(64, 92);
+            this.tuberiaDerecha.TabIndex = 4;
+            this.tuberiaDerecha.TabStop = false;
+            // 
             // Partida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1254, 679);
+            this.Controls.Add(this.tuberiaDerecha);
+            this.Controls.Add(this.tuberiaIzquierda);
             this.Controls.Add(this.lblLevel);
             this.Controls.Add(this.lblVidas);
             this.Controls.Add(this.lblPuntos);
@@ -92,6 +119,8 @@
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Partida_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Partida_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Partida_KeyUp);
+            ((System.ComponentModel.ISupportInitialize)(this.tuberiaIzquierda)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tuberiaDerecha)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -104,5 +133,7 @@
         private System.Windows.Forms.Label lblPuntos;
         private System.Windows.Forms.Label lblVidas;
         private System.Windows.Forms.Label lblLevel;
+        private System.Windows.Forms.PictureBox tuberiaIzquierda;
+        private System.Windows.Forms.PictureBox tuberiaDerecha;
     }
 }
