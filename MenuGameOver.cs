@@ -43,14 +43,14 @@ namespace MarioBrosWF
             List<RegistroRanking> lista = JsonSerializer.Deserialize<
                 List<RegistroRanking>>(jsonString2);
 
-            if (textBoxNombre.Text != "")
+            if (textBoxNombre.Text != "" && ! (textBoxNombre.Text.Length > 25))
             {
                 lista.Add(new RegistroRanking(puntos, textBoxNombre.Text));
                 MessageBox.Show("Registro añadido correctamente");
                 buttonRegistrar.Hide();
             }
             else
-                MessageBox.Show("Tienes que escribir un nombre", "Error", 
+                MessageBox.Show("Nombre vacío o demasiado largo", "Error", 
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             //Escritura

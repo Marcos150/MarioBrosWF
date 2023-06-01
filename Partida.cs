@@ -42,6 +42,7 @@ namespace MarioBrosWF
                 tuberiaIzquierda.Size.Width;
             nivelActual = 0;
             jugador = new Personaje();
+            ConfigurarMando();
             IniciarNivel();
             streamFondo = new WaveFileReader(SONIDO_FONDO);
             playerFondo = new WaveOut(); 
@@ -98,7 +99,6 @@ namespace MarioBrosWF
                     plataformas[i] = new Plataforma();
                 }
                 CrearPlataformas();
-                ConfigurarMando();
                 timerPartida.Start();
                 timerEnemigos.Start();
             }
@@ -468,7 +468,9 @@ namespace MarioBrosWF
                 //Se reproduzca una secreta
                 Random r = new Random();
                 int x = r.Next(99);
-                streamFondo.Position = 0;
+
+                playerFondo.Stop();
+                streamFondo.Position = 0; 
                 if (x < 10)
                     streamFondo = new WaveFileReader(SONIDO_FONDO_SECRETO);
                 else

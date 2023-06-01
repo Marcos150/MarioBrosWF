@@ -40,11 +40,11 @@
             // 
             lblNombre.Anchor = System.Windows.Forms.AnchorStyles.None;
             lblNombre.AutoSize = true;
-            lblNombre.Location = new System.Drawing.Point(551, 255);
+            lblNombre.Location = new System.Drawing.Point(481, 255);
             lblNombre.Name = "lblNombre";
-            lblNombre.Size = new System.Drawing.Size(93, 25);
+            lblNombre.Size = new System.Drawing.Size(297, 25);
             lblNombre.TabIndex = 3;
-            lblNombre.Text = "Nombre:";
+            lblNombre.Text = "Nombre (Máx. 25 caracteres):";
             // 
             // lblPuntos
             // 
