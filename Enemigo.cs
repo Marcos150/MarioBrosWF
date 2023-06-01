@@ -21,9 +21,9 @@ namespace MarioBrosWF
         public Enemigo() : base(Configuracion.DIMENSIONES_ENEMIGO[0], 
             Configuracion.DIMENSIONES_ENEMIGO[1])
         {
-            coordenadasX[DERECHA] = Configuracion.ANIMACION_ENEMIGO_DERECHA;
+            coordenadasX[DERECHA] = Configuracion.ANIMACION_TORTUGA_DERECHA;
             coordenadasY[DERECHA] = new int[] { 0, 0, 0, 0, 0 };
-            coordenadasX[IZQUIERDA] = Configuracion.ANIMACION_ENEMIGO_IZQUIERDA;
+            coordenadasX[IZQUIERDA] = Configuracion.ANIMACION_TORTUGA_IZQUIERDA;
             coordenadasY[IZQUIERDA] = new int[] { 0, 0, 0, 0, 0 };
             izquierda = false;
             derecha = false;
@@ -66,6 +66,7 @@ namespace MarioBrosWF
                 if (vidas == 1 && this is Cangrejo)
                 {
                     imagen.RotateFlip(RotateFlipType.RotateNoneFlipY);
+                    imagen = Image.FromFile(Configuracion.CARPETA + "cangrejoEnfadado.png");
                     this.velocidadActual *= 2;
                 }
                 if (vidas == 0)

@@ -93,8 +93,12 @@ namespace MarioBrosWF
                 {
                     Configuracion.ANIMACION_PERSONAJE_DERECHA[i] *= 2;
                     Configuracion.ANIMACION_PERSONAJE_IZQUIERDA[i] *= 2;
-                    Configuracion.ANIMACION_ENEMIGO_DERECHA[i] *= 2;
-                    Configuracion.ANIMACION_ENEMIGO_IZQUIERDA[i] *= 2;
+                    Configuracion.ANIMACION_TORTUGA_DERECHA[i] *= 2;
+                    Configuracion.ANIMACION_TORTUGA_IZQUIERDA[i] *= 2;
+                }
+                for (int i = 0; i < Configuracion.ANIMACION_CANGREJO.Length; i++)
+                {
+                    Configuracion.ANIMACION_CANGREJO[i] *= 2;
                 }
 
                 Configuracion.VELOCIDAD_INICIAL_ENEMIGOS *= 2;
@@ -125,8 +129,12 @@ namespace MarioBrosWF
                 {
                     Configuracion.ANIMACION_PERSONAJE_DERECHA[i] /= 2;
                     Configuracion.ANIMACION_PERSONAJE_IZQUIERDA[i] /= 2;
-                    Configuracion.ANIMACION_ENEMIGO_DERECHA[i] /= 2;
-                    Configuracion.ANIMACION_ENEMIGO_IZQUIERDA[i] /= 2;
+                    Configuracion.ANIMACION_TORTUGA_DERECHA[i] /= 2;
+                    Configuracion.ANIMACION_TORTUGA_IZQUIERDA[i] /= 2;
+                }
+                for (int i = 0; i < Configuracion.ANIMACION_CANGREJO.Length; i++)
+                {
+                    Configuracion.ANIMACION_CANGREJO[i] /= 2;
                 }
 
                 Configuracion.VELOCIDAD_INICIAL_ENEMIGOS /= 2;

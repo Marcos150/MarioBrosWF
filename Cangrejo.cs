@@ -6,21 +6,18 @@ namespace MarioBrosWF
 {
     internal class Cangrejo : Enemigo
     {
-        private bool estaEnfadado;
-
         public Cangrejo() : base()
         {
-            this.FICHERO_SPRITE = "recursos/placeholder.png";
-            this.estaEnfadado = false;
+            this.FICHERO_SPRITE = Configuracion.CARPETA + "cangrejoAndar.png";
             vidas = 2;
             spriteX = 0;
             spriteY = 0;
             imagen = Image.FromFile(FICHERO_SPRITE);
-            spriteVulnerable = FICHERO_SPRITE;
-            coordenadasX[DERECHA] = new int[] { 0, 0, 0, 0, 0 };
-            coordenadasY[DERECHA] = new int[] { 0, 0, 0, 0, 0 };
-            coordenadasX[IZQUIERDA] = new int[] { 0, 0, 0, 0, 0 };
-            coordenadasY[IZQUIERDA] = new int[] { 0, 0, 0, 0, 0 };
+            spriteVulnerable = Configuracion.CARPETA + "cangrejoVulnerable.png";
+            coordenadasX[DERECHA] = Configuracion.ANIMACION_CANGREJO;
+            coordenadasY[DERECHA] = new int[] { 0, 0, 0 };
+            coordenadasX[IZQUIERDA] = Configuracion.ANIMACION_CANGREJO;
+            coordenadasY[IZQUIERDA] = new int[] { 0, 0, 0 };
         }
     }
 }
