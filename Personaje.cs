@@ -1,5 +1,6 @@
 ﻿//Clase que define al personaje controlado por el jugador
 
+using NAudio.Wave;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -152,10 +153,12 @@ namespace MarioBrosWF
             }
         }
 
-        public void Salta()
+        public void Salta(WaveOut playerEfecto, WaveStream streamEfecto)
         {
             if (puedeSaltar)
             {
+                streamEfecto.Position = 0;
+                playerEfecto.Play();
                 y--; //Evita que que se pueda saltar 2 veces
                 plataformaActual = null;
                 this.gravedadActual = Configuracion.FUERZA_SALTO;

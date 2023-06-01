@@ -7,11 +7,15 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using SharpDX.XInput;
+using NAudio.Wave;
 
 namespace MarioBrosWF
 {
     public partial class Partida : Form
     {
+        private const string SONIDO_FONDO = "recursos/music.wav";
+        private const string SONIDO_FONDO_SECRETO = "recursos/musicSecret.wav";
+        private const string EFECTO_SALTO = "recursos/sonidoSalto.wav";
         private MenuPrincipal principal;
         private Personaje jugador;
         private List<Enemigo> enemigos;
@@ -21,6 +25,10 @@ namespace MarioBrosWF
         private Controller mando;
         private int nivelActual;
         private bool gameOver;
+        private WaveStream streamFondo;
+        private WaveStream streamEfecto;
+        private WaveOut playerFondo;
+        private WaveOut playerEfecto;
 
         public Partida()
         {
@@ -33,6 +41,14 @@ namespace MarioBrosWF
             nivelActual = 0;
             jugador = new Personaje();
             IniciarNivel();
+            streamFondo = new WaveFileReader(SONIDO_FONDO);
+            playerFondo = new WaveOut(); 
+            playerFondo.Init(streamFondo);
+            streamFondo.Position = streamFondo.Length;
+            ComprobarMusica();
+            streamEfecto = new WaveFileReader(EFECTO_SALTO);
+            playerEfecto = new WaveOut();
+            playerEfecto.Init(streamEfecto);
         }
 
         private void AjustarTamanyo()
@@ -106,7 +122,7 @@ namespace MarioBrosWF
             {
                 State estado = mando.GetState();
                 if (estado.Gamepad.Buttons == Configuracion.BOTON_SALTO)
-                    jugador.Salta();
+                    jugador.Salta(playerEfecto, streamEfecto);
 
                 if (estado.Gamepad.LeftThumbX < 0)
                 {
@@ -185,18 +201,12 @@ namespace MarioBrosWF
         private void Partida_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Left)
-            {
                 jugador.Izquierda = true;
-            }
             else if (e.KeyCode == Keys.Right)
-            { 
                 jugador.Derecha = true;
-            }
 
             if (e.KeyCode == Keys.Up)
-            {
-                jugador.Salta();
-            }
+                jugador.Salta(playerEfecto, streamEfecto);
         }
 
         private void Partida_KeyUp(object sender, KeyEventArgs e)
@@ -221,6 +231,7 @@ namespace MarioBrosWF
         {
             if (!gameOver)
                 principal.Show();
+            playerFondo.Stop();
         }
 
         private void timerPartida_Tick(object sender, EventArgs e)
@@ -233,6 +244,7 @@ namespace MarioBrosWF
             ComprobarTiempoEnemigos();
             MoverEnemigos();
             ActualizarHUD();
+            ComprobarMusica();
             ComprobarFinPartida();
         }
 
@@ -420,6 +432,25 @@ namespace MarioBrosWF
                 timerEnemigos.Stop();
                 MessageBox.Show("Has perdido", "Vaya...");
                 GameOver();
+            }
+        }
+
+        private void ComprobarMusica()
+        {
+            if (streamFondo.Position == streamFondo.Length)
+            {
+                //10% de probabilidades de que al iniciar o loopear la canción
+                //Se reproduzca una secreta
+                Random r = new Random();
+                int x = r.Next(99);
+                streamFondo.Position = 0;
+                if (x < 10)
+                    streamFondo = new WaveFileReader(SONIDO_FONDO_SECRETO);
+                else
+                    streamFondo = new WaveFileReader(SONIDO_FONDO);
+
+                playerFondo.Init(streamFondo);
+                playerFondo.Play();
             }
         }
 
