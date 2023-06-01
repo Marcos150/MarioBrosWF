@@ -11,7 +11,8 @@ namespace MarioBrosWF
         protected int velocidadActual;
         protected bool esVulnerable;
         protected int gravedadActual;
-        protected bool estaVivo;
+        //Define si un enemigo sale en la pantalla
+        protected bool enPantalla;
         //Plataforma sobre la que esta el enemigo
         protected Plataforma plataformaActual;
         //Tiempo que pasa desde que es golpeado hasta que se recupara
@@ -27,25 +28,33 @@ namespace MarioBrosWF
             coordenadasY[IZQUIERDA] = new int[] { 0, 0, 0, 0, 0 };
             izquierda = false;
             derecha = false;
-            estaVivo = false;
+            enPantalla = false;
             ActualizarCoordenadasSprite();
             esVulnerable = false;
+            velocidadActual = Configuracion.VELOCIDAD_INICIAL_ENEMIGOS;
             gravedadActual = 0;
             tiempoVulnerabilidad = 0;
         }
 
         public void Mover()
         {
-            if (estaVivo)
+            if (enPantalla)
             {
                 if (!esVulnerable)
                 {
-                    int nuevaX = x + velocidadActual;
-                    MoverA(nuevaX, y);
+                    int nuevaX = 0;
+
                     if (derecha)
+                    {
                         Animar(DERECHA);
+                        nuevaX = x + velocidadActual;
+                    }
                     else if (izquierda)
+                    {
                         Animar(IZQUIERDA);
+                        nuevaX = x - velocidadActual;
+                    }
+                    MoverA(nuevaX, y);
                 }
 
                 if (plataformaActual == null)
@@ -55,6 +64,10 @@ namespace MarioBrosWF
                 if (plataformaActual != null)
                     this.gravedadActual = 0;
             }
+            //Si el enemigo se sale de la pantalla se pone a falso enPantalla
+            //para que pueda ser generado otra vez
+            if (x <= -ancho || x >= Configuracion.ANCHO_PANTALLA)
+                enPantalla = false;
         }
 
         public void CambiarVulnerabilidad()
@@ -62,10 +75,8 @@ namespace MarioBrosWF
             if (!esVulnerable)
             {
                 vidas--;
-                //Aquí cambia al spritesheet de "estar enfadado"
                 if (vidas == 1 && this is Cangrejo)
                 {
-                    imagen.RotateFlip(RotateFlipType.RotateNoneFlipY);
                     imagen = Image.FromFile(Configuracion.CARPETA + "cangrejoEnfadado.png");
                     this.velocidadActual *= 2;
                 }
@@ -79,7 +90,7 @@ namespace MarioBrosWF
                     imagen = Image.FromFile(spriteVulnerable);
                 }
             }
-            else if (estaVivo)
+            else if (enPantalla)
             {
                 esVulnerable = false;
                 if (derecha)
@@ -96,9 +107,9 @@ namespace MarioBrosWF
 
         public void Generar()
         {
-            estaVivo = true;
-            this.x = Configuracion.COORDENADAS_INICIALES_ENEMIGO[0];
-            this.y = Configuracion.COORDENADAS_INICIALES_ENEMIGO[1];
+            enPantalla = true;
+            x = Configuracion.COORDENADAS_INICIALES_ENEMIGO[0];
+            y = Configuracion.COORDENADAS_INICIALES_ENEMIGO[1];
         }
 
         public bool EsVulnerable()
@@ -106,20 +117,20 @@ namespace MarioBrosWF
             return esVulnerable;
         }
 
-        public bool EstaVivo()
+        public bool EnPantalla()
         {
-            return estaVivo;
+            return enPantalla;
         }
 
         public void Exterminado()
         {
-            this.estaVivo = false;
-            this.vidas = 0;
+            enPantalla = false;
+            vidas = 0;
         }
 
         public void SetPlataforma(Plataforma p)
         {
-            this.plataformaActual = p;
+            plataformaActual = p;
         }
 
         public Plataforma GetPlataforma()
@@ -144,7 +155,7 @@ namespace MarioBrosWF
 
         public void SetVelocidad(int velocidad)
         {
-            this.velocidadActual = velocidad;
+            velocidadActual = velocidad;
         }
 
         public void SetDerecha(bool derecha)

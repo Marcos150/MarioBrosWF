@@ -138,7 +138,7 @@ namespace MarioBrosWF
             }
             foreach (Enemigo enemigo in enemigos)
             {
-                if (enemigo.EstaVivo())
+                if (enemigo.EnPantalla())
                     enemigo.Dibujar(e.Graphics);
             }
         }
@@ -148,7 +148,9 @@ namespace MarioBrosWF
             bool generado = false;
             foreach (Enemigo e in enemigos)
             {
-                if (!e.EstaVivo() && e.GetVidas() > 0 && !generado)
+                //Se generan los enemigos de la lista que no estan en pantalla
+                //y aún tienen vidas
+                if (!e.EnPantalla() && e.GetVidas() > 0 && !generado)
                 {
                     e.Generar();
                     generado = true;
@@ -159,14 +161,14 @@ namespace MarioBrosWF
                             Configuracion.ANCHO_PANTALLA - 
                             (tuberiaDerecha.Width + e.Ancho);
                         e.SetDerecha(true);
-                        e.SetVelocidad(Configuracion.VELOCIDAD_INICIAL_ENEMIGOS);
+                        e.SetIzquierda(false);
                     }
                     //Lado derecho
                     else
                     {
                         Configuracion.COORDENADAS_INICIALES_ENEMIGO[0] = tuberiaIzquierda.Size.Width;
                         e.SetIzquierda(true);
-                        e.SetVelocidad(-Configuracion.VELOCIDAD_INICIAL_ENEMIGOS);
+                        e.SetDerecha(false);
                     }
                 }
             }
@@ -174,7 +176,7 @@ namespace MarioBrosWF
 
         private void GolpearPOW()
         {
-            enemigos.Where(e => e.EstaVivo()).ToList().ForEach(e => e.CambiarVulnerabilidad());
+            enemigos.Where(e => e.EnPantalla()).ToList().ForEach(e => e.CambiarVulnerabilidad());
             pow.SetUsosRestantes(pow.GetUsosRestantes() - 1);
             pow.CambiarSprite();
             jugador.SetHaGolpeado(true);
@@ -266,9 +268,9 @@ namespace MarioBrosWF
             //Enemigos
             foreach (Enemigo e in enemigos)
             {
-                if (jugador.ColisionaCon(e) && !e.EsVulnerable() && e.EstaVivo())
+                if (jugador.ColisionaCon(e) && !e.EsVulnerable() && e.EnPantalla())
                     jugador.Reaparecer();
-                else if (jugador.ColisionaCon(e) && e.EsVulnerable() && e.EstaVivo())
+                else if (jugador.ColisionaCon(e) && e.EsVulnerable() && e.EnPantalla())
                 {
                     e.Exterminado();
                     jugador.SetPuntos(jugador.GetPuntos() + Configuracion.PUNTOS_ENEMIGO);
@@ -399,7 +401,7 @@ namespace MarioBrosWF
             
             foreach (Enemigo e in enemigos)
             {
-                if (e.EstaVivo() || e.GetVidas() > 0)
+                if (e.EnPantalla() || e.GetVidas() > 0)
                     quedanEnemigos = true;
             }
             //Se derrotan todos los enemigos
