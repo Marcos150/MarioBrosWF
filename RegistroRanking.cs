@@ -34,10 +34,5 @@ namespace MarioBrosWF
             this.nombre = nombre;
             this.fecha = DateTime.Now;
         }
-
-        public override string ToString()
-        {
-            return nombre + " " + puntuacion + " " + fecha.ToString();
-        }
     }
 }

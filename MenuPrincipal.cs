@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Text.Json;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace MarioBrosWF
 {
@@ -37,8 +38,13 @@ namespace MarioBrosWF
 
             foreach (RegistroRanking r in lista)
             {
-                listRanking.Items.Add(r.ToString());
+                ListViewItem registro = new ListViewItem();
+                registro.Text = r.Nombre.ToString();
+                registro.SubItems.Add(r.Puntuacion.ToString());
+                registro.SubItems.Add(r.Fecha.ToString());
+                listRanking.Items.Add(registro);
             }
+            listRanking.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 
             //Escritura
             var opciones = new JsonSerializerOptions { WriteIndented = true };

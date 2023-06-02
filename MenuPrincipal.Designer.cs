@@ -30,8 +30,11 @@
         {
             this.buttonInicio = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.listRanking = new System.Windows.Forms.ListBox();
             this.buttonTamanyo = new System.Windows.Forms.Button();
+            this.listRanking = new System.Windows.Forms.ListView();
+            this.columnaNombre = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnaPuntos = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnaFecha = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // buttonInicio
@@ -54,15 +57,6 @@
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // listRanking
-            // 
-            this.listRanking.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.listRanking.ItemHeight = 25;
-            this.listRanking.Location = new System.Drawing.Point(366, 213);
-            this.listRanking.Name = "listRanking";
-            this.listRanking.Size = new System.Drawing.Size(579, 454);
-            this.listRanking.TabIndex = 4;
-            // 
             // buttonTamanyo
             // 
             this.buttonTamanyo.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -74,13 +68,46 @@
             this.buttonTamanyo.UseVisualStyleBackColor = true;
             this.buttonTamanyo.Click += new System.EventHandler(this.buttonTamanyo_Click);
             // 
+            // listRanking
+            // 
+            this.listRanking.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.listRanking.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnaNombre,
+            this.columnaPuntos,
+            this.columnaFecha});
+            this.listRanking.Enabled = false;
+            this.listRanking.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listRanking.HideSelection = false;
+            this.listRanking.Location = new System.Drawing.Point(304, 213);
+            this.listRanking.MultiSelect = false;
+            this.listRanking.Name = "listRanking";
+            this.listRanking.Size = new System.Drawing.Size(677, 460);
+            this.listRanking.TabIndex = 6;
+            this.listRanking.UseCompatibleStateImageBehavior = false;
+            this.listRanking.View = System.Windows.Forms.View.Details;
+            // 
+            // columnaNombre
+            // 
+            this.columnaNombre.Text = "Nombre";
+            this.columnaNombre.Width = 25;
+            // 
+            // columnaPuntos
+            // 
+            this.columnaPuntos.Text = "Puntos";
+            this.columnaPuntos.Width = 25;
+            // 
+            // columnaFecha
+            // 
+            this.columnaFecha.Text = "Fecha";
+            this.columnaFecha.Width = 25;
+            // 
             // MenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1254, 679);
-            this.Controls.Add(this.buttonTamanyo);
             this.Controls.Add(this.listRanking);
+            this.Controls.Add(this.buttonTamanyo);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonInicio);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -95,9 +122,12 @@
 
         #endregion
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ListBox listRanking;
         private System.Windows.Forms.Button buttonTamanyo;
         private System.Windows.Forms.Button buttonInicio;
+        private System.Windows.Forms.ListView listRanking;
+        private System.Windows.Forms.ColumnHeader columnaNombre;
+        private System.Windows.Forms.ColumnHeader columnaPuntos;
+        private System.Windows.Forms.ColumnHeader columnaFecha;
     }
 }
 
