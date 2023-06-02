@@ -41,7 +41,8 @@ namespace MarioBrosWF
                 ListViewItem registro = new ListViewItem();
                 registro.Text = r.Nombre.ToString();
                 registro.SubItems.Add(r.Puntuacion.ToString());
-                registro.SubItems.Add(r.Fecha.ToString());
+                registro.SubItems.Add(r.Nivel.ToString());
+                registro.SubItems.Add(r.Fecha.ToString());  
                 listRanking.Items.Add(registro);
             }
             listRanking.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);

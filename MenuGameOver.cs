@@ -11,13 +11,15 @@ namespace MarioBrosWF
     {
         private MenuPrincipal principal;
         private int puntos;
+        private int nivelAlcanzado;
 
-        public MenuGameOver(int puntos)
+        public MenuGameOver(int puntos, int nivelAlcanzado)
         {
             InitializeComponent();
             this.Width = Configuracion.ANCHO_PANTALLA;
             this.Height = Configuracion.ALTO_PANTALLA;
             this.puntos = puntos;
+            this.nivelAlcanzado = nivelAlcanzado;
             this.lblPuntos.Text = "Puntuación final: " + puntos + " puntos";
         }
 
@@ -45,7 +47,7 @@ namespace MarioBrosWF
 
             if (textBoxNombre.Text != "" && ! (textBoxNombre.Text.Length > 25))
             {
-                lista.Add(new RegistroRanking(puntos, textBoxNombre.Text));
+                lista.Add(new RegistroRanking(puntos, nivelAlcanzado,textBoxNombre.Text));
                 MessageBox.Show("Registro añadido correctamente");
                 buttonRegistrar.Hide();
             }

@@ -514,7 +514,7 @@ namespace MarioBrosWF
             timerEnemigos.Stop();
             timerPartida.Stop();
             gameOver = true;
-            MenuGameOver over = new MenuGameOver(jugador.GetPuntos());
+            MenuGameOver over = new MenuGameOver(jugador.GetPuntos(), nivelActual + 1);
             over.SetMenu(this.principal);
             over.Show();
             this.Close();

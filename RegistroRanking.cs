@@ -7,6 +7,7 @@ namespace MarioBrosWF
     internal struct RegistroRanking
     {
         int puntuacion;
+        int nivel;
         string nombre;
         DateTime fecha;
 
@@ -14,6 +15,13 @@ namespace MarioBrosWF
         {
             get { return puntuacion; }
             set { puntuacion = value; }
+        }
+
+
+        public int Nivel
+        {
+            get { return nivel; }
+            set { nivel = value; }
         }
 
         public string Nombre
@@ -28,9 +36,10 @@ namespace MarioBrosWF
             set { fecha = DateTime.Parse(value); }
         }
 
-        public RegistroRanking(int puntuacion, string nombre)
+        public RegistroRanking(int puntuacion, int nivel, string nombre)
         {
-            this.puntuacion = puntuacion; 
+            this.puntuacion = puntuacion;
+            this.nivel = nivel;
             this.nombre = nombre;
             this.fecha = DateTime.Now;
         }

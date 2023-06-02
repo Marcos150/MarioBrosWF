@@ -35,6 +35,7 @@
             this.columnaNombre = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnaPuntos = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnaFecha = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnaNivel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // buttonInicio
@@ -74,14 +75,15 @@
             this.listRanking.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnaNombre,
             this.columnaPuntos,
+            this.columnaNivel,
             this.columnaFecha});
             this.listRanking.Enabled = false;
             this.listRanking.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listRanking.HideSelection = false;
-            this.listRanking.Location = new System.Drawing.Point(304, 213);
+            this.listRanking.Location = new System.Drawing.Point(298, 213);
             this.listRanking.MultiSelect = false;
             this.listRanking.Name = "listRanking";
-            this.listRanking.Size = new System.Drawing.Size(677, 460);
+            this.listRanking.Size = new System.Drawing.Size(707, 460);
             this.listRanking.TabIndex = 6;
             this.listRanking.UseCompatibleStateImageBehavior = false;
             this.listRanking.View = System.Windows.Forms.View.Details;
@@ -100,6 +102,11 @@
             // 
             this.columnaFecha.Text = "Fecha";
             this.columnaFecha.Width = 25;
+            // 
+            // columnaNivel
+            // 
+            this.columnaNivel.Text = "Nivel";
+            this.columnaNivel.Width = 25;
             // 
             // MenuPrincipal
             // 
@@ -128,6 +135,7 @@
         private System.Windows.Forms.ColumnHeader columnaNombre;
         private System.Windows.Forms.ColumnHeader columnaPuntos;
         private System.Windows.Forms.ColumnHeader columnaFecha;
+        private System.Windows.Forms.ColumnHeader columnaNivel;
     }
 }
 
