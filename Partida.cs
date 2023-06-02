@@ -59,6 +59,7 @@ namespace MarioBrosWF
                 tuberiaIzquierda.Size.Width;
             nivelActual = 0;
             jugador = new Personaje();
+            pow = new BloquePOW();
             ConfigurarMando();
             IniciarNivel();
 
@@ -110,7 +111,6 @@ namespace MarioBrosWF
             //Si aún quedan niveles, se sigue con el proceso
             if (!gameOver)
             {
-                pow = new BloquePOW();
                 gameOver = false;
                 //5 es el máximo de plataformas por fila
                 plataformas = new Plataforma[Configuracion.FILAS_MAPA * 5];
